@@ -3,24 +3,28 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+from waflib import Configure, Utils, Logs, Context
+import os
 
 def options(opt):
-    opt.load('compiler_cxx')
+    opt.load(['compiler_c', 'compiler_cxx', 'qt5'])
 
 def configure(conf):
-    conf.load('compiler_cxx')
+    conf.load(['compiler_c', 'compiler_cxx', 'qt5'])
     conf.check_cfg(package='libndn-cxx', args=['--cflags', '--libs'], uselib_store='NDN_CXX', mandatory=True)
 
-def build(bld):
+def build(bld): # 创建一个任务生成器，用来生成下面的任务
     bld.program(
-        target='client',
-        source=['src/client/client.cpp','src/client/ndn_client.cpp'],
-        use='NDN_CXX',
+        features = 'qt5 cxx',
+        target='client', # 生成的可执行文件名
+        source=bld.path.ant_glob(['src/client/*.cpp', 'src/client/*.ui']),
+        # includes = "src/client .",
+        use='NDN_CXX QT5CORE QT5GUI QT5OPENGL', # 使用的库名
     )
 
     bld.program(
         features='cxx',
         target='server',
-        source=['src/server/server.cpp','src/server/ndn_producer.cpp'],
+        source=bld.path.ant_glob(['src/server/*.cpp']),
         use='NDN_CXX',
     )

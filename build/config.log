@@ -1,4 +1,4 @@
-# project  configured on Thu Dec 13 21:54:50 2018 by
+# project  configured on Mon Dec 17 09:51:15 2018 by
 # waf 2.0.12 (abi 20, python 2070fc1 on linux2)
 # using ./waf configure
 #
@@ -8,6 +8,360 @@ Setting top to
 ----------------------------------------
 Setting out to
 /home/lyn/文档/ndn-netmgmt/build
+----------------------------------------
+Checking for 'gcc' (C compiler)
+find program=['gcc', 'cc'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin'] var='CC' -> ['/usr/bin/gcc']
+['/usr/bin/gcc', '-dM', '-E', '-']
+out: #define __SSP_STRONG__ 3
+#define __DBL_MIN_EXP__ (-1021)
+#define __FLT32X_MAX_EXP__ 1024
+#define __UINT_LEAST16_MAX__ 0xffff
+#define __ATOMIC_ACQUIRE 2
+#define __FLT128_MAX_10_EXP__ 4932
+#define __FLT_MIN__ 1.17549435082228750796873653722224568e-38F
+#define __GCC_IEC_559_COMPLEX 2
+#define __UINT_LEAST8_TYPE__ unsigned char
+#define __SIZEOF_FLOAT80__ 16
+#define __INTMAX_C(c) c ## L
+#define __CHAR_BIT__ 8
+#define __UINT8_MAX__ 0xff
+#define __WINT_MAX__ 0xffffffffU
+#define __FLT32_MIN_EXP__ (-125)
+#define __ORDER_LITTLE_ENDIAN__ 1234
+#define __SIZE_MAX__ 0xffffffffffffffffUL
+#define __WCHAR_MAX__ 0x7fffffff
+#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 1
+#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 1
+#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 1
+#define __DBL_DENORM_MIN__ ((double)4.94065645841246544176568792868221372e-324L)
+#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_8 1
+#define __GCC_ATOMIC_CHAR_LOCK_FREE 2
+#define __GCC_IEC_559 2
+#define __FLT32X_DECIMAL_DIG__ 17
+#define __FLT_EVAL_METHOD__ 0
+#define __unix__ 1
+#define __FLT64_DECIMAL_DIG__ 17
+#define __GCC_ATOMIC_CHAR32_T_LOCK_FREE 2
+#define __x86_64 1
+#define __UINT_FAST64_MAX__ 0xffffffffffffffffUL
+#define __SIG_ATOMIC_TYPE__ int
+#define __DBL_MIN_10_EXP__ (-307)
+#define __FINITE_MATH_ONLY__ 0
+#define __GNUC_PATCHLEVEL__ 0
+#define __FLT32_HAS_DENORM__ 1
+#define __UINT_FAST8_MAX__ 0xff
+#define __has_include(STR) __has_include__(STR)
+#define __DEC64_MAX_EXP__ 385
+#define __INT8_C(c) c
+#define __INT_LEAST8_WIDTH__ 8
+#define __UINT_LEAST64_MAX__ 0xffffffffffffffffUL
+#define __SHRT_MAX__ 0x7fff
+#define __LDBL_MAX__ 1.18973149535723176502126385303097021e+4932L
+#define __FLT64X_MAX_10_EXP__ 4932
+#define __UINT_LEAST8_MAX__ 0xff
+#define __GCC_ATOMIC_BOOL_LOCK_FREE 2
+#define __FLT128_DENORM_MIN__ 6.47517511943802511092443895822764655e-4966F128
+#define __UINTMAX_TYPE__ long unsigned int
+#define __linux 1
+#define __DEC32_EPSILON__ 1E-6DF
+#define __FLT_EVAL_METHOD_TS_18661_3__ 0
+#define __unix 1
+#define __UINT32_MAX__ 0xffffffffU
+#define __LDBL_MAX_EXP__ 16384
+#define __FLT128_MIN_EXP__ (-16381)
+#define __WINT_MIN__ 0U
+#define __linux__ 1
+#define __FLT128_MIN_10_EXP__ (-4931)
+#define __INT_LEAST16_WIDTH__ 16
+#define __SCHAR_MAX__ 0x7f
+#define __FLT128_MANT_DIG__ 113
+#define __WCHAR_MIN__ (-__WCHAR_MAX__ - 1)
+#define __INT64_C(c) c ## L
+#define __DBL_DIG__ 15
+#define __GCC_ATOMIC_POINTER_LOCK_FREE 2
+#define __FLT64X_MANT_DIG__ 64
+#define __SIZEOF_INT__ 4
+#define __SIZEOF_POINTER__ 8
+#define __USER_LABEL_PREFIX__ 
+#define __FLT64X_EPSILON__ 1.08420217248550443400745280086994171e-19F64x
+#define __STDC_HOSTED__ 1
+#define __LDBL_HAS_INFINITY__ 1
+#define __FLT32_DIG__ 6
+#define __FLT_EPSILON__ 1.19209289550781250000000000000000000e-7F
+#define __SHRT_WIDTH__ 16
+#define __LDBL_MIN__ 3.36210314311209350626267781732175260e-4932L
+#define __STDC_UTF_16__ 1
+#define __DEC32_MAX__ 9.999999E96DF
+#define __FLT64X_DENORM_MIN__ 3.64519953188247460252840593361941982e-4951F64x
+#define __FLT32X_HAS_INFINITY__ 1
+#define __INT32_MAX__ 0x7fffffff
+#define __INT_WIDTH__ 32
+#define __SIZEOF_LONG__ 8
+#define __STDC_IEC_559__ 1
+#define __STDC_ISO_10646__ 201706L
+#define __UINT16_C(c) c
+#define __PTRDIFF_WIDTH__ 64
+#define __DECIMAL_DIG__ 21
+#define __FLT64_EPSILON__ 2.22044604925031308084726333618164062e-16F64
+#define __gnu_linux__ 1
+#define __INTMAX_WIDTH__ 64
+#define __has_include_next(STR) __has_include_next__(STR)
+#define __FLT64X_MIN_10_EXP__ (-4931)
+#define __LDBL_HAS_QUIET_NAN__ 1
+#define __FLT64_MANT_DIG__ 53
+#define __GNUC__ 7
+#define __pie__ 2
+#define __MMX__ 1
+#define __FLT_HAS_DENORM__ 1
+#define __SIZEOF_LONG_DOUBLE__ 16
+#define __BIGGEST_ALIGNMENT__ 16
+#define __FLT64_MAX_10_EXP__ 308
+#define __DBL_MAX__ ((double)1.79769313486231570814527423731704357e+308L)
+#define __INT_FAST32_MAX__ 0x7fffffffffffffffL
+#define __DBL_HAS_INFINITY__ 1
+#define __DEC32_MIN_EXP__ (-94)
+#define __INTPTR_WIDTH__ 64
+#define __FLT32X_HAS_DENORM__ 1
+#define __INT_FAST16_TYPE__ long int
+#define __LDBL_HAS_DENORM__ 1
+#define __FLT128_HAS_INFINITY__ 1
+#define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL
+#define __INT_LEAST32_MAX__ 0x7fffffff
+#define __DEC32_MIN__ 1E-95DF
+#define __DBL_MAX_EXP__ 1024
+#define __WCHAR_WIDTH__ 32
+#define __FLT32_MAX__ 3.40282346638528859811704183484516925e+38F32
+#define __DEC128_EPSILON__ 1E-33DL
+#define __SSE2_MATH__ 1
+#define __ATOMIC_HLE_RELEASE 131072
+#define __PTRDIFF_MAX__ 0x7fffffffffffffffL
+#define __amd64 1
+#define __STDC_NO_THREADS__ 1
+#define __ATOMIC_HLE_ACQUIRE 65536
+#define __FLT32_HAS_QUIET_NAN__ 1
+#define __LONG_LONG_MAX__ 0x7fffffffffffffffLL
+#define __SIZEOF_SIZE_T__ 8
+#define __FLT64X_MIN_EXP__ (-16381)
+#define __SIZEOF_WINT_T__ 4
+#define __LONG_LONG_WIDTH__ 64
+#define __FLT32_MAX_EXP__ 128
+#define __GCC_HAVE_DWARF2_CFI_ASM 1
+#define __GXX_ABI_VERSION 1011
+#define __FLT_MIN_EXP__ (-125)
+#define __FLT64X_HAS_QUIET_NAN__ 1
+#define __INT_FAST64_TYPE__ long int
+#define __FLT64_DENORM_MIN__ 4.94065645841246544176568792868221372e-324F64
+#define __DBL_MIN__ ((double)2.22507385850720138309023271733240406e-308L)
+#define __PIE__ 2
+#define __LP64__ 1
+#define __FLT32X_EPSILON__ 2.22044604925031308084726333618164062e-16F32x
+#define __DECIMAL_BID_FORMAT__ 1
+#define __FLT64_MIN_EXP__ (-1021)
+#define __FLT64_MIN_10_EXP__ (-307)
+#define __FLT64X_DECIMAL_DIG__ 21
+#define __DEC128_MIN__ 1E-6143DL
+#define __REGISTER_PREFIX__ 
+#define __UINT16_MAX__ 0xffff
+#define __DBL_HAS_DENORM__ 1
+#define __FLT32_MIN__ 1.17549435082228750796873653722224568e-38F32
+#define __UINT8_TYPE__ unsigned char
+#define __NO_INLINE__ 1
+#define __FLT_MANT_DIG__ 24
+#define __LDBL_DECIMAL_DIG__ 21
+#define __VERSION__ "7.3.0"
+#define __UINT64_C(c) c ## UL
+#define _STDC_PREDEF_H 1
+#define __GCC_ATOMIC_INT_LOCK_FREE 2
+#define __FLT128_MAX_EXP__ 16384
+#define __FLT32_MANT_DIG__ 24
+#define __FLOAT_WORD_ORDER__ __ORDER_LITTLE_ENDIAN__
+#define __STDC_IEC_559_COMPLEX__ 1
+#define __FLT128_HAS_DENORM__ 1
+#define __FLT128_DIG__ 33
+#define __SCHAR_WIDTH__ 8
+#define __INT32_C(c) c
+#define __DEC64_EPSILON__ 1E-15DD
+#define __ORDER_PDP_ENDIAN__ 3412
+#define __DEC128_MIN_EXP__ (-6142)
+#define __FLT32_MAX_10_EXP__ 38
+#define __INT_FAST32_TYPE__ long int
+#define __UINT_LEAST16_TYPE__ short unsigned int
+#define __FLT64X_HAS_INFINITY__ 1
+#define unix 1
+#define __INT16_MAX__ 0x7fff
+#define __SIZE_TYPE__ long unsigned int
+#define __UINT64_MAX__ 0xffffffffffffffffUL
+#define __FLT64X_DIG__ 18
+#define __INT8_TYPE__ signed char
+#define __ELF__ 1
+#define __GCC_ASM_FLAG_OUTPUTS__ 1
+#define __FLT_RADIX__ 2
+#define __INT_LEAST16_TYPE__ short int
+#define __LDBL_EPSILON__ 1.08420217248550443400745280086994171e-19L
+#define __UINTMAX_C(c) c ## UL
+#define __SSE_MATH__ 1
+#define __k8 1
+#define __SIG_ATOMIC_MAX__ 0x7fffffff
+#define __GCC_ATOMIC_WCHAR_T_LOCK_FREE 2
+#define __SIZEOF_PTRDIFF_T__ 8
+#define __FLT32X_MANT_DIG__ 53
+#define __x86_64__ 1
+#define __FLT32X_MIN_EXP__ (-1021)
+#define __DEC32_SUBNORMAL_MIN__ 0.000001E-95DF
+#define __INT_FAST16_MAX__ 0x7fffffffffffffffL
+#define __FLT64_DIG__ 15
+#define __UINT_FAST32_MAX__ 0xffffffffffffffffUL
+#define __UINT_LEAST64_TYPE__ long unsigned int
+#define __FLT_HAS_QUIET_NAN__ 1
+#define __FLT_MAX_10_EXP__ 38
+#define __LONG_MAX__ 0x7fffffffffffffffL
+#define __FLT64X_HAS_DENORM__ 1
+#define __DEC128_SUBNORMAL_MIN__ 0.000000000000000000000000000000001E-6143DL
+#define __FLT_HAS_INFINITY__ 1
+#define __UINT_FAST16_TYPE__ long unsigned int
+#define __DEC64_MAX__ 9.999999999999999E384DD
+#define __INT_FAST32_WIDTH__ 64
+#define __CHAR16_TYPE__ short unsigned int
+#define __PRAGMA_REDEFINE_EXTNAME 1
+#define __SIZE_WIDTH__ 64
+#define __SEG_FS 1
+#define __INT_LEAST16_MAX__ 0x7fff
+#define __DEC64_MANT_DIG__ 16
+#define __INT64_MAX__ 0x7fffffffffffffffL
+#define __UINT_LEAST32_MAX__ 0xffffffffU
+#define __SEG_GS 1
+#define __FLT32_DENORM_MIN__ 1.40129846432481707092372958328991613e-45F32
+#define __GCC_ATOMIC_LONG_LOCK_FREE 2
+#define __SIG_ATOMIC_WIDTH__ 32
+#define __INT_LEAST64_TYPE__ long int
+#define __INT16_TYPE__ short int
+#define __INT_LEAST8_TYPE__ signed char
+#define __STDC_VERSION__ 201112L
+#define __DEC32_MAX_EXP__ 97
+#define __INT_FAST8_MAX__ 0x7f
+#define __FLT128_MAX__ 1.18973149535723176508575932662800702e+4932F128
+#define __INTPTR_MAX__ 0x7fffffffffffffffL
+#define linux 1
+#define __FLT64_HAS_QUIET_NAN__ 1
+#define __FLT32_MIN_10_EXP__ (-37)
+#define __SSE2__ 1
+#define __FLT32X_DIG__ 15
+#define __LDBL_MANT_DIG__ 64
+#define __DBL_HAS_QUIET_NAN__ 1
+#define __FLT64_HAS_INFINITY__ 1
+#define __FLT64X_MAX__ 1.18973149535723176502126385303097021e+4932F64x
+#define __SIG_ATOMIC_MIN__ (-__SIG_ATOMIC_MAX__ - 1)
+#define __code_model_small__ 1
+#define __k8__ 1
+#define __INTPTR_TYPE__ long int
+#define __UINT16_TYPE__ short unsigned int
+#define __WCHAR_TYPE__ int
+#define __SIZEOF_FLOAT__ 4
+#define __pic__ 2
+#define __UINTPTR_MAX__ 0xffffffffffffffffUL
+#define __INT_FAST64_WIDTH__ 64
+#define __DEC64_MIN_EXP__ (-382)
+#define __FLT32_DECIMAL_DIG__ 9
+#define __INT_FAST64_MAX__ 0x7fffffffffffffffL
+#define __GCC_ATOMIC_TEST_AND_SET_TRUEVAL 1
+#define __FLT_DIG__ 6
+#define __FLT32_HAS_INFINITY__ 1
+#define __FLT64X_MAX_EXP__ 16384
+#define __UINT_FAST64_TYPE__ long unsigned int
+#define __INT_MAX__ 0x7fffffff
+#define __amd64__ 1
+#define __INT64_TYPE__ long int
+#define __FLT_MAX_EXP__ 128
+#define __ORDER_BIG_ENDIAN__ 4321
+#define __DBL_MANT_DIG__ 53
+#define __SIZEOF_FLOAT128__ 16
+#define __INT_LEAST64_MAX__ 0x7fffffffffffffffL
+#define __GCC_ATOMIC_CHAR16_T_LOCK_FREE 2
+#define __DEC64_MIN__ 1E-383DD
+#define __WINT_TYPE__ unsigned int
+#define __UINT_LEAST32_TYPE__ unsigned int
+#define __SIZEOF_SHORT__ 2
+#define __SSE__ 1
+#define __LDBL_MIN_EXP__ (-16381)
+#define __FLT64_MAX__ 1.79769313486231570814527423731704357e+308F64
+#define __WINT_WIDTH__ 32
+#define __INT_LEAST8_MAX__ 0x7f
+#define __FLT32X_MAX_10_EXP__ 308
+#define __SIZEOF_INT128__ 16
+#define __LDBL_MAX_10_EXP__ 4932
+#define __ATOMIC_RELAXED 0
+#define __DBL_EPSILON__ ((double)2.22044604925031308084726333618164062e-16L)
+#define __FLT128_MIN__ 3.36210314311209350626267781732175260e-4932F128
+#define _LP64 1
+#define __UINT8_C(c) c
+#define __FLT64_MAX_EXP__ 1024
+#define __INT_LEAST32_TYPE__ int
+#define __SIZEOF_WCHAR_T__ 4
+#define __UINT64_TYPE__ long unsigned int
+#define __FLT128_HAS_QUIET_NAN__ 1
+#define __INT_FAST8_TYPE__ signed char
+#define __FLT64X_MIN__ 3.36210314311209350626267781732175260e-4932F64x
+#define __GNUC_STDC_INLINE__ 1
+#define __FLT64_HAS_DENORM__ 1
+#define __FLT32_EPSILON__ 1.19209289550781250000000000000000000e-7F32
+#define __DBL_DECIMAL_DIG__ 17
+#define __STDC_UTF_32__ 1
+#define __INT_FAST8_WIDTH__ 8
+#define __FXSR__ 1
+#define __DEC_EVAL_METHOD__ 2
+#define __FLT32X_MAX__ 1.79769313486231570814527423731704357e+308F32x
+#define __UINT32_C(c) c ## U
+#define __INTMAX_MAX__ 0x7fffffffffffffffL
+#define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__
+#define __FLT_DENORM_MIN__ 1.40129846432481707092372958328991613e-45F
+#define __INT8_MAX__ 0x7f
+#define __LONG_WIDTH__ 64
+#define __PIC__ 2
+#define __UINT_FAST32_TYPE__ long unsigned int
+#define __CHAR32_TYPE__ unsigned int
+#define __FLT_MAX__ 3.40282346638528859811704183484516925e+38F
+#define __INT32_TYPE__ int
+#define __SIZEOF_DOUBLE__ 8
+#define __FLT_MIN_10_EXP__ (-37)
+#define __FLT64_MIN__ 2.22507385850720138309023271733240406e-308F64
+#define __INT_LEAST32_WIDTH__ 32
+#define __INTMAX_TYPE__ long int
+#define __DEC128_MAX_EXP__ 6145
+#define __FLT32X_HAS_QUIET_NAN__ 1
+#define __ATOMIC_CONSUME 1
+#define __GNUC_MINOR__ 3
+#define __INT_FAST16_WIDTH__ 64
+#define __UINTMAX_MAX__ 0xffffffffffffffffUL
+#define __DEC32_MANT_DIG__ 7
+#define __FLT32X_DENORM_MIN__ 4.94065645841246544176568792868221372e-324F32x
+#define __DBL_MAX_10_EXP__ 308
+#define __LDBL_DENORM_MIN__ 3.64519953188247460252840593361941982e-4951L
+#define __INT16_C(c) c
+#define __STDC__ 1
+#define __PTRDIFF_TYPE__ long int
+#define __ATOMIC_SEQ_CST 5
+#define __UINT32_TYPE__ unsigned int
+#define __FLT32X_MIN_10_EXP__ (-307)
+#define __UINTPTR_TYPE__ long unsigned int
+#define __DEC64_SUBNORMAL_MIN__ 0.000000000000001E-383DD
+#define __DEC128_MANT_DIG__ 34
+#define __LDBL_MIN_10_EXP__ (-4931)
+#define __FLT128_EPSILON__ 1.92592994438723585305597794258492732e-34F128
+#define __SIZEOF_LONG_LONG__ 8
+#define __FLT128_DECIMAL_DIG__ 36
+#define __GCC_ATOMIC_LLONG_LOCK_FREE 2
+#define __FLT32X_MIN__ 2.22507385850720138309023271733240406e-308F32x
+#define __LDBL_DIG__ 18
+#define __FLT_DECIMAL_DIG__ 9
+#define __UINT_FAST16_MAX__ 0xffffffffffffffffUL
+#define __GCC_ATOMIC_SHORT_LOCK_FREE 2
+#define __INT_LEAST64_WIDTH__ 64
+#define __UINT_FAST8_TYPE__ unsigned char
+#define __ATOMIC_ACQ_REL 4
+#define __ATOMIC_RELEASE 3
+
+find program=['ar'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin'] var='AR' -> ['/usr/bin/ar']
+/usr/bin/gcc
 ----------------------------------------
 Checking for 'g++' (C++ compiler)
 find program=['g++', 'c++'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin'] var='CXX' -> ['/usr/bin/g++']
@@ -363,9 +717,406 @@ out: #define __SSP_STRONG__ 3
 find program=['ar'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin'] var='AR' -> ['/usr/bin/ar']
 /usr/bin/g++
 ----------------------------------------
+Checking for program 'qmake-qt5'
+not found
+find program=['qmake-qt5'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/usr/share/qt5/bin', '/usr/local/lib/qt5/bin'] var='QMAKE_QT5' -> None
+from /home/lyn/文档/ndn-netmgmt: Could not find the program ['qmake-qt5']
+----------------------------------------
+Checking for program 'qmake5'
+not found
+find program=['qmake5'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/usr/share/qt5/bin', '/usr/local/lib/qt5/bin'] var='QMAKE5' -> None
+from /home/lyn/文档/ndn-netmgmt: Could not find the program ['qmake5']
+----------------------------------------
+Checking for program 'qmake'
+/usr/bin/qmake
+find program=['qmake'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/usr/share/qt5/bin', '/usr/local/lib/qt5/bin'] var='QMAKE' -> ['/usr/bin/qmake']
+['/usr/bin/qmake', '-query', 'QT_VERSION']
+out: 5.9.5
+
+['/usr/bin/qmake', '-query', 'QT_HOST_BINS']
+out: /usr/lib/qt5/bin
+
+----------------------------------------
+Checking for program 'uic-qt5'
+not found
+find program=['uic-qt5'] paths=['/usr/lib/qt5/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/usr/share/qt5/bin', '/usr/local/lib/qt5/bin'] var='UIC_QT5' -> None
+from /home/lyn/文档/ndn-netmgmt: Could not find the program ['uic-qt5']
+----------------------------------------
+Checking for program 'uic'
+/usr/lib/qt5/bin/uic
+find program=['uic'] paths=['/usr/lib/qt5/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/usr/share/qt5/bin', '/usr/local/lib/qt5/bin'] var='UIC' -> ['/usr/lib/qt5/bin/uic']
+----------------------------------------
+Checking for uic version
+['/usr/lib/qt5/bin/uic', '-version']
+out: uic 5.9.5
+
+uic 5.9.5
+----------------------------------------
+Checking for program 'moc-qt5'
+not found
+find program=['moc-qt5'] paths=['/usr/lib/qt5/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/usr/share/qt5/bin', '/usr/local/lib/qt5/bin'] var='MOC_QT5' -> None
+from /home/lyn/文档/ndn-netmgmt: Could not find the program ['moc-qt5']
+----------------------------------------
+Checking for program 'moc'
+/usr/lib/qt5/bin/moc
+find program=['moc'] paths=['/usr/lib/qt5/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/usr/share/qt5/bin', '/usr/local/lib/qt5/bin'] var='MOC' -> ['/usr/lib/qt5/bin/moc']
+----------------------------------------
+Checking for program 'rcc-qt5'
+not found
+find program=['rcc-qt5'] paths=['/usr/lib/qt5/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/usr/share/qt5/bin', '/usr/local/lib/qt5/bin'] var='RCC_QT5' -> None
+from /home/lyn/文档/ndn-netmgmt: Could not find the program ['rcc-qt5']
+----------------------------------------
+Checking for program 'rcc'
+/usr/lib/qt5/bin/rcc
+find program=['rcc'] paths=['/usr/lib/qt5/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/usr/share/qt5/bin', '/usr/local/lib/qt5/bin'] var='RCC' -> ['/usr/lib/qt5/bin/rcc']
+----------------------------------------
+Checking for program 'lrelease-qt5'
+not found
+find program=['lrelease-qt5'] paths=['/usr/lib/qt5/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/usr/share/qt5/bin', '/usr/local/lib/qt5/bin'] var='LRELEASE_QT5' -> None
+from /home/lyn/文档/ndn-netmgmt: Could not find the program ['lrelease-qt5']
+----------------------------------------
+Checking for program 'lrelease'
+/usr/bin/lrelease
+find program=['lrelease'] paths=['/usr/lib/qt5/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/usr/share/qt5/bin', '/usr/local/lib/qt5/bin'] var='LRELEASE' -> ['/usr/bin/lrelease']
+----------------------------------------
+Checking for program 'lupdate-qt5'
+not found
+find program=['lupdate-qt5'] paths=['/usr/lib/qt5/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/usr/share/qt5/bin', '/usr/local/lib/qt5/bin'] var='LUPDATE_QT5' -> None
+from /home/lyn/文档/ndn-netmgmt: Could not find the program ['lupdate-qt5']
+----------------------------------------
+Checking for program 'lupdate'
+/usr/bin/lupdate
+find program=['lupdate'] paths=['/usr/lib/qt5/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/usr/share/qt5/bin', '/usr/local/lib/qt5/bin'] var='LUPDATE' -> ['/usr/bin/lupdate']
+['/usr/bin/qmake', '-query', 'QT_INSTALL_LIBS']
+out: /usr/lib/x86_64-linux-gnu
+
+----------------------------------------
+Found the Qt5 libraries in
+/usr/lib/x86_64-linux-gnu
+['/usr/bin/qmake', '-query', 'QT_INSTALL_HEADERS']
+out: /usr/include/x86_64-linux-gnu/qt5
+
+----------------------------------------
 Checking for program 'pkg-config'
 /usr/bin/pkg-config
 find program=['pkg-config'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin'] var='PKGCONFIG' -> ['/usr/bin/pkg-config']
+----------------------------------------
+Checking for pkg-config version >= '0.1'
+['/usr/bin/pkg-config', '--atleast-pkgconfig-version=0.1']
+yes
+----------------------------------------
+Checking for 'Qt5Concurrent'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Concurrent']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtConcurrent -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Concurrent -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5Svg'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Svg']
+err: Package Qt5Svg was not found in the pkg-config search path.
+Perhaps you should add the directory containing `Qt5Svg.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'Qt5Svg' found
+
+not found
+from /home/lyn/文档/ndn-netmgmt: The configuration failed
+----------------------------------------
+Checking for 'Qt5Sql'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Sql']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Sql -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5XcbQpa'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5XcbQpa']
+err: Package Qt5XcbQpa was not found in the pkg-config search path.
+Perhaps you should add the directory containing `Qt5XcbQpa.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'Qt5XcbQpa' found
+
+not found
+from /home/lyn/文档/ndn-netmgmt: The configuration failed
+----------------------------------------
+Checking for 'Qt5Help'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Help']
+err: Package Qt5Help was not found in the pkg-config search path.
+Perhaps you should add the directory containing `Qt5Help.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'Qt5Help' found
+
+not found
+from /home/lyn/文档/ndn-netmgmt: The configuration failed
+----------------------------------------
+Checking for 'Qt5Core'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Core']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5Sql'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Sql']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Sql -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5Test'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Test']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtTest -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Test -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5OpenGL'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5OpenGL']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5OpenGL -lQt5Widgets -lQt5Gui -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5Xml'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Xml']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtXml -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Xml -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5DBus'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5DBus']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtDBus -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5DBus -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5CLucene'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5CLucene']
+err: Package Qt5CLucene was not found in the pkg-config search path.
+Perhaps you should add the directory containing `Qt5CLucene.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'Qt5CLucene' found
+
+not found
+from /home/lyn/文档/ndn-netmgmt: The configuration failed
+----------------------------------------
+Checking for 'Qt5Widgets'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Widgets']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Widgets -lQt5Gui -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5Designer'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Designer']
+err: Package Qt5Designer was not found in the pkg-config search path.
+Perhaps you should add the directory containing `Qt5Designer.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'Qt5Designer' found
+
+not found
+from /home/lyn/文档/ndn-netmgmt: The configuration failed
+----------------------------------------
+Checking for 'Qt5DBus'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5DBus']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtDBus -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5DBus -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5PrintSupport'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5PrintSupport']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5PrintSupport -lQt5Widgets -lQt5Gui -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5Network'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Network']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Network -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5Declarative'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Declarative']
+err: Package Qt5Declarative was not found in the pkg-config search path.
+Perhaps you should add the directory containing `Qt5Declarative.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'Qt5Declarative' found
+
+not found
+from /home/lyn/文档/ndn-netmgmt: The configuration failed
+----------------------------------------
+Checking for 'Qt5Test'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Test']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtTest -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Test -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5Gui'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Gui']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Gui -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5EglFSDeviceIntegration'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5EglFSDeviceIntegration']
+err: Package Qt5EglFSDeviceIntegration was not found in the pkg-config search path.
+Perhaps you should add the directory containing `Qt5EglFSDeviceIntegration.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'Qt5EglFSDeviceIntegration' found
+
+not found
+from /home/lyn/文档/ndn-netmgmt: The configuration failed
+----------------------------------------
+Checking for 'Qt5OpenGL'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5OpenGL']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5OpenGL -lQt5Widgets -lQt5Gui -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5Network'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Network']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Network -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5EglFsKmsSupport'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5EglFsKmsSupport']
+err: Package Qt5EglFsKmsSupport was not found in the pkg-config search path.
+Perhaps you should add the directory containing `Qt5EglFsKmsSupport.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'Qt5EglFsKmsSupport' found
+
+not found
+from /home/lyn/文档/ndn-netmgmt: The configuration failed
+----------------------------------------
+Checking for 'Qt5Gui'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Gui']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Gui -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5Core'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Core']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt53Support'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt53Support']
+err: Package Qt53Support was not found in the pkg-config search path.
+Perhaps you should add the directory containing `Qt53Support.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'Qt53Support' found
+
+not found
+from /home/lyn/文档/ndn-netmgmt: The configuration failed
+----------------------------------------
+Checking for 'Qt5ScriptTools'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5ScriptTools']
+err: Package Qt5ScriptTools was not found in the pkg-config search path.
+Perhaps you should add the directory containing `Qt5ScriptTools.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'Qt5ScriptTools' found
+
+not found
+from /home/lyn/文档/ndn-netmgmt: The configuration failed
+----------------------------------------
+Checking for 'Qt5Script'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Script']
+err: Package Qt5Script was not found in the pkg-config search path.
+Perhaps you should add the directory containing `Qt5Script.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'Qt5Script' found
+
+not found
+from /home/lyn/文档/ndn-netmgmt: The configuration failed
+----------------------------------------
+Checking for 'Qt5XmlPatterns'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5XmlPatterns']
+err: Package Qt5XmlPatterns was not found in the pkg-config search path.
+Perhaps you should add the directory containing `Qt5XmlPatterns.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'Qt5XmlPatterns' found
+
+not found
+from /home/lyn/文档/ndn-netmgmt: The configuration failed
+----------------------------------------
+Checking for 'Qt5DesignerComponents'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5DesignerComponents']
+err: Package Qt5DesignerComponents was not found in the pkg-config search path.
+Perhaps you should add the directory containing `Qt5DesignerComponents.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'Qt5DesignerComponents' found
+
+not found
+from /home/lyn/文档/ndn-netmgmt: The configuration failed
+----------------------------------------
+Checking for 'Qt5Xml'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Xml']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtXml -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Xml -lQt5Core
+
+yes
+----------------------------------------
+See if Qt files compile 
+==>
+#include <QApplication>
+int main(int argc, char **argv) {return 0;}
+
+<==
+[1/1] Compiling [32mbuild/.conf_check_57a1dd7f67868351d9941e0e14cb1e97/test.cpp[0m
+
+['/usr/bin/g++', '-I/usr/include/x86_64-linux-gnu/qt5/QtCore', '-I/usr/include/x86_64-linux-gnu/qt5', '-I/usr/include/x86_64-linux-gnu/qt5/QtWidgets', '-I/usr/include/x86_64-linux-gnu/qt5/QtGui', '-DHAVE_QT5CONCURRENT=1', '-DHAVE_QT5SQL=1', '-DHAVE_QT5CORE=1', '-DHAVE_QT5TEST=1', '-DHAVE_QT5OPENGL=1', '-DHAVE_QT5XML=1', '-DHAVE_QT5DBUS=1', '-DHAVE_QT5WIDGETS=1', '-DHAVE_QT5PRINTSUPPORT=1', '-DHAVE_QT5NETWORK=1', '-DHAVE_QT5GUI=1', '../test.cpp', '-c', '-o/home/lyn/\xe6\x96\x87\xe6\xa1\xa3/ndn-netmgmt/build/.conf_check_57a1dd7f67868351d9941e0e14cb1e97/testbuild/test.cpp.1.o']
+err: In file included from /usr/include/x86_64-linux-gnu/qt5/QtGui/qtguiglobal.h:43:0,
+                 from /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h:43,
+                 from /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h:43,
+                 from /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QApplication:1,
+                 from ../test.cpp:1:
+/usr/include/x86_64-linux-gnu/qt5/QtCore/qglobal.h:1135:4: error: #error "You must build your code with position independent code if Qt was built with -reduce-relocations. " "Compile your code with -fPIC (-fPIE is not enough)."
+ #  error "You must build your code with position independent code if Qt was built with -reduce-relocations. "\
+    ^~~~~
+
+from /home/lyn/文档/ndn-netmgmt: Test does not build: Traceback (most recent call last):
+  File "/home/lyn/文档/ndn-netmgmt/.waf-2.0.12-a1cbc484bd8e00604ec58a8a19848174/waflib/Configure.py", line 325, in run_build
+    bld.compile()
+  File "/home/lyn/文档/ndn-netmgmt/.waf-2.0.12-a1cbc484bd8e00604ec58a8a19848174/waflib/Build.py", line 176, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed with exit status 1 (run with -v to display more information)
+
+no
+from /home/lyn/文档/ndn-netmgmt: The configuration failed
+----------------------------------------
+See if Qt files compile with -fPIE
+==>
+#include <QApplication>
+int main(int argc, char **argv) {return 0;}
+
+<==
+[1/1] Compiling [32mbuild/.conf_check_3e4551a1c741d9f66118ebf15b28a726/test.cpp[0m
+
+['/usr/bin/g++', '-fPIE', '-I/usr/include/x86_64-linux-gnu/qt5/QtCore', '-I/usr/include/x86_64-linux-gnu/qt5', '-I/usr/include/x86_64-linux-gnu/qt5/QtWidgets', '-I/usr/include/x86_64-linux-gnu/qt5/QtGui', '-DHAVE_QT5CONCURRENT=1', '-DHAVE_QT5SQL=1', '-DHAVE_QT5CORE=1', '-DHAVE_QT5TEST=1', '-DHAVE_QT5OPENGL=1', '-DHAVE_QT5XML=1', '-DHAVE_QT5DBUS=1', '-DHAVE_QT5WIDGETS=1', '-DHAVE_QT5PRINTSUPPORT=1', '-DHAVE_QT5NETWORK=1', '-DHAVE_QT5GUI=1', '../test.cpp', '-c', '-o/home/lyn/\xe6\x96\x87\xe6\xa1\xa3/ndn-netmgmt/build/.conf_check_3e4551a1c741d9f66118ebf15b28a726/testbuild/test.cpp.1.o']
+err: In file included from /usr/include/x86_64-linux-gnu/qt5/QtGui/qtguiglobal.h:43:0,
+                 from /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h:43,
+                 from /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h:43,
+                 from /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QApplication:1,
+                 from ../test.cpp:1:
+/usr/include/x86_64-linux-gnu/qt5/QtCore/qglobal.h:1135:4: error: #error "You must build your code with position independent code if Qt was built with -reduce-relocations. " "Compile your code with -fPIC (-fPIE is not enough)."
+ #  error "You must build your code with position independent code if Qt was built with -reduce-relocations. "\
+    ^~~~~
+
+from /home/lyn/文档/ndn-netmgmt: Test does not build: Traceback (most recent call last):
+  File "/home/lyn/文档/ndn-netmgmt/.waf-2.0.12-a1cbc484bd8e00604ec58a8a19848174/waflib/Configure.py", line 325, in run_build
+    bld.compile()
+  File "/home/lyn/文档/ndn-netmgmt/.waf-2.0.12-a1cbc484bd8e00604ec58a8a19848174/waflib/Build.py", line 176, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed with exit status 1 (run with -v to display more information)
+
+no
+from /home/lyn/文档/ndn-netmgmt: The configuration failed
+----------------------------------------
+See if Qt files compile with -fPIC
+==>
+#include <QApplication>
+int main(int argc, char **argv) {return 0;}
+
+<==
+[1/1] Compiling [32mbuild/.conf_check_a4a04a5aace0bc8d689054ae6f041ce0/test.cpp[0m
+
+['/usr/bin/g++', '-fPIC', '-I/usr/include/x86_64-linux-gnu/qt5/QtCore', '-I/usr/include/x86_64-linux-gnu/qt5', '-I/usr/include/x86_64-linux-gnu/qt5/QtWidgets', '-I/usr/include/x86_64-linux-gnu/qt5/QtGui', '-DHAVE_QT5CONCURRENT=1', '-DHAVE_QT5SQL=1', '-DHAVE_QT5CORE=1', '-DHAVE_QT5TEST=1', '-DHAVE_QT5OPENGL=1', '-DHAVE_QT5XML=1', '-DHAVE_QT5DBUS=1', '-DHAVE_QT5WIDGETS=1', '-DHAVE_QT5PRINTSUPPORT=1', '-DHAVE_QT5NETWORK=1', '-DHAVE_QT5GUI=1', '../test.cpp', '-c', '-o/home/lyn/\xe6\x96\x87\xe6\xa1\xa3/ndn-netmgmt/build/.conf_check_a4a04a5aace0bc8d689054ae6f041ce0/testbuild/test.cpp.1.o']
+yes
 ----------------------------------------
 Checking for 'libndn-cxx'
 ['/usr/bin/pkg-config', '--cflags', '--libs', 'libndn-cxx']

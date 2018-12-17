@@ -69,9 +69,10 @@ void Producer::getCSInformation(){
 
 void Producer::onInterest(const ndn::Interest & interest){
     ndn::Name dataName(interest.getName());
-    //std::cout << dataName << std::endl;
-    std::string option = dataName.at(-1).toUri();
-    //std::cout << option << std::endl;
+    /** 按需请求
+    std::cout << dataName << std::endl;
+    std::string option = dataName.at(-1).toUri(); //按需请求的标志
+    std::cout << option << std::endl;
     if(option == "dataset"){
         m_dataContent = new char [ALL_CONTENT_LENGTH]; //动态分配10KB空间
         getAllInformation();
@@ -85,6 +86,10 @@ void Producer::onInterest(const ndn::Interest & interest){
     else{
         std::cout << "no match" << std::endl;
     }
+    */
+    m_dataContent = new char [PART_CONTENT_LENGTH]; //动态分配1024字节空间
+    getCSInformation();
+    createAndSendData(dataName);
 }
 
 void Producer::onRegisterFailed(const ndn::Name& prefix, const std::string& reason)
