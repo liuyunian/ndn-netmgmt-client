@@ -1,4 +1,4 @@
-# project  configured on Mon Dec 17 09:51:15 2018 by
+# project  configured on Mon Dec 17 21:24:03 2018 by
 # waf 2.0.12 (abi 20, python 2070fc1 on linux2)
 # using ./waf configure
 #
@@ -776,8 +776,8 @@ find program=['lrelease-qt5'] paths=['/usr/lib/qt5/bin', '/usr/local/sbin', '/us
 from /home/lyn/文档/ndn-netmgmt: Could not find the program ['lrelease-qt5']
 ----------------------------------------
 Checking for program 'lrelease'
-/usr/bin/lrelease
-find program=['lrelease'] paths=['/usr/lib/qt5/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/usr/share/qt5/bin', '/usr/local/lib/qt5/bin'] var='LRELEASE' -> ['/usr/bin/lrelease']
+/usr/lib/qt5/bin/lrelease
+find program=['lrelease'] paths=['/usr/lib/qt5/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/usr/share/qt5/bin', '/usr/local/lib/qt5/bin'] var='LRELEASE' -> ['/usr/lib/qt5/bin/lrelease']
 ----------------------------------------
 Checking for program 'lupdate-qt5'
 not found
@@ -785,8 +785,8 @@ find program=['lupdate-qt5'] paths=['/usr/lib/qt5/bin', '/usr/local/sbin', '/usr
 from /home/lyn/文档/ndn-netmgmt: Could not find the program ['lupdate-qt5']
 ----------------------------------------
 Checking for program 'lupdate'
-/usr/bin/lupdate
-find program=['lupdate'] paths=['/usr/lib/qt5/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/usr/share/qt5/bin', '/usr/local/lib/qt5/bin'] var='LUPDATE' -> ['/usr/bin/lupdate']
+/usr/lib/qt5/bin/lupdate
+find program=['lupdate'] paths=['/usr/lib/qt5/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/usr/share/qt5/bin', '/usr/local/lib/qt5/bin'] var='LUPDATE' -> ['/usr/lib/qt5/bin/lupdate']
 ['/usr/bin/qmake', '-query', 'QT_INSTALL_LIBS']
 out: /usr/lib/x86_64-linux-gnu
 
@@ -1055,9 +1055,9 @@ See if Qt files compile
 int main(int argc, char **argv) {return 0;}
 
 <==
-[1/1] Compiling [32mbuild/.conf_check_57a1dd7f67868351d9941e0e14cb1e97/test.cpp[0m
+[1/1] Compiling [32mbuild/.conf_check_e3071c9055f7d74087bb0aaa578bff2f/test.cpp[0m
 
-['/usr/bin/g++', '-I/usr/include/x86_64-linux-gnu/qt5/QtCore', '-I/usr/include/x86_64-linux-gnu/qt5', '-I/usr/include/x86_64-linux-gnu/qt5/QtWidgets', '-I/usr/include/x86_64-linux-gnu/qt5/QtGui', '-DHAVE_QT5CONCURRENT=1', '-DHAVE_QT5SQL=1', '-DHAVE_QT5CORE=1', '-DHAVE_QT5TEST=1', '-DHAVE_QT5OPENGL=1', '-DHAVE_QT5XML=1', '-DHAVE_QT5DBUS=1', '-DHAVE_QT5WIDGETS=1', '-DHAVE_QT5PRINTSUPPORT=1', '-DHAVE_QT5NETWORK=1', '-DHAVE_QT5GUI=1', '../test.cpp', '-c', '-o/home/lyn/\xe6\x96\x87\xe6\xa1\xa3/ndn-netmgmt/build/.conf_check_57a1dd7f67868351d9941e0e14cb1e97/testbuild/test.cpp.1.o']
+['/usr/bin/g++', '-I/usr/include/x86_64-linux-gnu/qt5/QtCore', '-I/usr/include/x86_64-linux-gnu/qt5', '-I/usr/include/x86_64-linux-gnu/qt5/QtWidgets', '-I/usr/include/x86_64-linux-gnu/qt5/QtGui', '-DHAVE_QT5CONCURRENT=1', '-DHAVE_QT5SQL=1', '-DHAVE_QT5CORE=1', '-DHAVE_QT5TEST=1', '-DHAVE_QT5OPENGL=1', '-DHAVE_QT5XML=1', '-DHAVE_QT5DBUS=1', '-DHAVE_QT5WIDGETS=1', '-DHAVE_QT5PRINTSUPPORT=1', '-DHAVE_QT5NETWORK=1', '-DHAVE_QT5GUI=1', '../test.cpp', '-c', '-o/home/lyn/\xe6\x96\x87\xe6\xa1\xa3/ndn-netmgmt/build/.conf_check_e3071c9055f7d74087bb0aaa578bff2f/testbuild/test.cpp.1.o']
 err: In file included from /usr/include/x86_64-linux-gnu/qt5/QtGui/qtguiglobal.h:43:0,
                  from /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h:43,
                  from /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h:43,
@@ -1084,9 +1084,9 @@ See if Qt files compile with -fPIE
 int main(int argc, char **argv) {return 0;}
 
 <==
-[1/1] Compiling [32mbuild/.conf_check_3e4551a1c741d9f66118ebf15b28a726/test.cpp[0m
+[1/1] Compiling [32mbuild/.conf_check_25387fb144a2eca0dc413ad97aad3b67/test.cpp[0m
 
-['/usr/bin/g++', '-fPIE', '-I/usr/include/x86_64-linux-gnu/qt5/QtCore', '-I/usr/include/x86_64-linux-gnu/qt5', '-I/usr/include/x86_64-linux-gnu/qt5/QtWidgets', '-I/usr/include/x86_64-linux-gnu/qt5/QtGui', '-DHAVE_QT5CONCURRENT=1', '-DHAVE_QT5SQL=1', '-DHAVE_QT5CORE=1', '-DHAVE_QT5TEST=1', '-DHAVE_QT5OPENGL=1', '-DHAVE_QT5XML=1', '-DHAVE_QT5DBUS=1', '-DHAVE_QT5WIDGETS=1', '-DHAVE_QT5PRINTSUPPORT=1', '-DHAVE_QT5NETWORK=1', '-DHAVE_QT5GUI=1', '../test.cpp', '-c', '-o/home/lyn/\xe6\x96\x87\xe6\xa1\xa3/ndn-netmgmt/build/.conf_check_3e4551a1c741d9f66118ebf15b28a726/testbuild/test.cpp.1.o']
+['/usr/bin/g++', '-fPIE', '-I/usr/include/x86_64-linux-gnu/qt5/QtCore', '-I/usr/include/x86_64-linux-gnu/qt5', '-I/usr/include/x86_64-linux-gnu/qt5/QtWidgets', '-I/usr/include/x86_64-linux-gnu/qt5/QtGui', '-DHAVE_QT5CONCURRENT=1', '-DHAVE_QT5SQL=1', '-DHAVE_QT5CORE=1', '-DHAVE_QT5TEST=1', '-DHAVE_QT5OPENGL=1', '-DHAVE_QT5XML=1', '-DHAVE_QT5DBUS=1', '-DHAVE_QT5WIDGETS=1', '-DHAVE_QT5PRINTSUPPORT=1', '-DHAVE_QT5NETWORK=1', '-DHAVE_QT5GUI=1', '../test.cpp', '-c', '-o/home/lyn/\xe6\x96\x87\xe6\xa1\xa3/ndn-netmgmt/build/.conf_check_25387fb144a2eca0dc413ad97aad3b67/testbuild/test.cpp.1.o']
 err: In file included from /usr/include/x86_64-linux-gnu/qt5/QtGui/qtguiglobal.h:43:0,
                  from /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h:43,
                  from /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h:43,
@@ -1113,9 +1113,9 @@ See if Qt files compile with -fPIC
 int main(int argc, char **argv) {return 0;}
 
 <==
-[1/1] Compiling [32mbuild/.conf_check_a4a04a5aace0bc8d689054ae6f041ce0/test.cpp[0m
+[1/1] Compiling [32mbuild/.conf_check_8f4fb75dba0e3b5009d2a44a846f44b9/test.cpp[0m
 
-['/usr/bin/g++', '-fPIC', '-I/usr/include/x86_64-linux-gnu/qt5/QtCore', '-I/usr/include/x86_64-linux-gnu/qt5', '-I/usr/include/x86_64-linux-gnu/qt5/QtWidgets', '-I/usr/include/x86_64-linux-gnu/qt5/QtGui', '-DHAVE_QT5CONCURRENT=1', '-DHAVE_QT5SQL=1', '-DHAVE_QT5CORE=1', '-DHAVE_QT5TEST=1', '-DHAVE_QT5OPENGL=1', '-DHAVE_QT5XML=1', '-DHAVE_QT5DBUS=1', '-DHAVE_QT5WIDGETS=1', '-DHAVE_QT5PRINTSUPPORT=1', '-DHAVE_QT5NETWORK=1', '-DHAVE_QT5GUI=1', '../test.cpp', '-c', '-o/home/lyn/\xe6\x96\x87\xe6\xa1\xa3/ndn-netmgmt/build/.conf_check_a4a04a5aace0bc8d689054ae6f041ce0/testbuild/test.cpp.1.o']
+['/usr/bin/g++', '-fPIC', '-I/usr/include/x86_64-linux-gnu/qt5/QtCore', '-I/usr/include/x86_64-linux-gnu/qt5', '-I/usr/include/x86_64-linux-gnu/qt5/QtWidgets', '-I/usr/include/x86_64-linux-gnu/qt5/QtGui', '-DHAVE_QT5CONCURRENT=1', '-DHAVE_QT5SQL=1', '-DHAVE_QT5CORE=1', '-DHAVE_QT5TEST=1', '-DHAVE_QT5OPENGL=1', '-DHAVE_QT5XML=1', '-DHAVE_QT5DBUS=1', '-DHAVE_QT5WIDGETS=1', '-DHAVE_QT5PRINTSUPPORT=1', '-DHAVE_QT5NETWORK=1', '-DHAVE_QT5GUI=1', '../test.cpp', '-c', '-o/home/lyn/\xe6\x96\x87\xe6\xa1\xa3/ndn-netmgmt/build/.conf_check_8f4fb75dba0e3b5009d2a44a846f44b9/testbuild/test.cpp.1.o']
 yes
 ----------------------------------------
 Checking for 'libndn-cxx'

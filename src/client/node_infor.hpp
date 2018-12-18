@@ -2,6 +2,7 @@
 #define NODE_INFOR_H
 
 #include <QMainWindow>
+#include "ndn_client.hpp"
 
 namespace Ui {
 class NodeInfor;
@@ -15,6 +16,12 @@ public:
     explicit NodeInfor(QWidget *parent = 0);
     ~NodeInfor();
 
+    /**
+     * 设置指针m_client,指向client.cpp中创建的client实例
+     * 本来是想在构造函数中初始化的，有问题！
+    */
+    void setPointToClient(std::shared_ptr<Client> client){u_client = client;}
+
 private slots:
     void on_addNodeInfo_clicked();
 
@@ -24,8 +31,7 @@ private slots:
 
 private:
     Ui::NodeInfor *ui;
-    QString nodeName;
-    QString nodePrefix;
+    std::shared_ptr<Client> u_client;
 };
 
 #endif // NODE_INFOR_H

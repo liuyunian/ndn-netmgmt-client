@@ -1,10 +1,6 @@
 #include "node_infor.hpp"
 #include "ui_node_infor.h"
-
-#include <QFileDialog>
-#include <QFile>
-#include <QTextStream>
-#include <QMessageBox>
+#include <src/client/node_infor.moc>
 
 NodeInfor::NodeInfor(QWidget *parent) :
     QMainWindow(parent),
@@ -20,22 +16,30 @@ NodeInfor::~NodeInfor()
 
 void NodeInfor::on_addNodeInfo_clicked()
 {
-    nodeName = this->ui->nodeName->text();
-    nodePrefix = this->ui->nodePrefix->text();
+    QString nodeName = this->ui->nodeName->text();
+    QString nodePrefix = this->ui->nodePrefix->text();
     if(nodeName.isEmpty() || nodePrefix.isEmpty()){
         return;
     }
-    this->ui->allInfo->setPlainText(nodeName + ": " + nodePrefix);
+    u_client->m_nodeEntryList.push_back(std::make_shared<NodeEntry>(nodeName.toStdString(), nodePrefix.toStdString()));
+    this->ui->allInfo->append(nodeName + ": " + nodePrefix);
     this->ui->nodeName->clear();
     this->ui->nodePrefix->clear();
 }
 
 void NodeInfor::on_buttonBox_accepted()
 {
-    //qDebug() << "点击了确认按钮";
+    if(u_client->m_nodeEntryList.empty()){ //没有输入任何节点信息就点击了确认按钮
+        this->ui->allInfo->append("please add some node information!");
+    }
+    else{
+        u_client->start(); //客户端开始发送Interest包获取节点信息
+        this->close(); //关闭窗口
+    }
 }
 
 void NodeInfor::on_buttonBox_rejected()
 {
-    //qDebug() << "点击了取消按钮";
+    //TODO：暂时还没想怎么处理
+    this->ui->allInfo->append("click cancle button");
 }
