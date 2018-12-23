@@ -14,8 +14,8 @@ private:
     ndn::Face& m_face;
     ndn::Name m_prefix;
     ndn::KeyChain& m_keyChain;
-    //char m_dataContent[CONTENT_LENGTH]; //TODO：改成动态数组？？
-    char * m_dataContent;
+    //char * m_dataContent;
+    std::string m_dataContent;
     const ndn::RegisteredPrefixId * m_registeredPrefix; //在RIB中注册的路由前缀
 
 public:
@@ -25,14 +25,9 @@ public:
 
 private: 
     /**
-     * @brief 利用nfdc status report命令，获取nfd全部状态信息，作为data的内容
+     * @brief 利用nfdc status report xml命令，获取nfd全部状态信息，信息的格式是xml
     */
-    void getAllInformation();
-
-    /**
-     * @brief 利用nfdc cs info 命令，获取到CS statistics information, 作为data的内容
-    */
-    void getCSInformation();
+    void getNFDInformation();
 
     /**
      * @brief 注册接收到Interest包之后的回调函数

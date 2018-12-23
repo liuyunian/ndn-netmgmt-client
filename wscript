@@ -3,9 +3,6 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-from waflib import Configure, Utils, Logs, Context
-import os
-
 def options(opt):
     opt.load(['compiler_c', 'compiler_cxx', 'qt5'])
 
@@ -17,9 +14,9 @@ def build(bld): # 创建一个任务生成器，用来生成下面的任务
     bld.program(
         features = 'qt5 cxx',
         target='client', # 生成的可执行文件名
-        source=bld.path.ant_glob(['src/client/*.cpp', 'src/client/*.ui']),
-        includes = ". ./src/client",
-        use='NDN_CXX QT5CORE QT5GUI QT5OPENGL QT5SVG QT5BASE', # 使用的库名
+        source=bld.path.ant_glob(['src/client/*.cpp', 'src/client/ui/*.cpp', 'src/client/ui/*.ui']),
+        includes = ". ./src/client ./src/client/ui",
+        use='NDN_CXX QT5CORE QT5GUI QT5OPENGL QT5SVG QT5BASE QT5XML', # 使用的库名
         # use='QTCORE QTGUI QTWIDGETS QTSQL NDN_CXX' # qt4的库
     )
 

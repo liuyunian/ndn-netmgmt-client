@@ -3,8 +3,7 @@
 #include "ndn_producer.hpp"
 
 Producer::Producer(ndn::Face& face, ndn::KeyChain& keyChain)
-:m_dataContent(nullptr),
-m_face(face),
+:m_face(face),
 m_keyChain(keyChain)
 {}
 
@@ -31,33 +30,14 @@ void Producer::start(){
     }    
 }
 
-void Producer::getAllInformation(){
+void Producer::getNFDInformation(){
     std::string cmd = "nfdc status report xml";
+    char tmp[ALL_CONTENT_LENGTH];
     FILE * ptr; //文件指针
     if((ptr=popen(cmd.c_str(), "r"))!=NULL)   
     {   
-        fgets(m_dataContent, ALL_CONTENT_LENGTH, ptr); //将全部的信息都存到m_dataContent中
-        std::cout << m_dataContent << std::endl;
-    }   
-    else  
-    {   
-        std::cout << "popen" << cmd << "fail" << std::endl;
-    }
-    pclose(ptr);   
-    ptr = NULL; 
-}
-
-void Producer::getCSInformation(){
-    std::string cmd = "nfdc cs info";
-    char tmp[128];
-    FILE * ptr; //文件指针
-    if((ptr=popen(cmd.c_str(), "r"))!=NULL)   
-    {   
-        while(fgets(tmp, 128, ptr)!=NULL) //因为是test格式的存在换行，所以用循环拿到所有数据
-        {   
-           strcat(m_dataContent, tmp);
-        } 
-        std::cout << m_dataContent << std::endl;
+        fgets(tmp, ALL_CONTENT_LENGTH, ptr); //将全部的信息都存到临时tmp字符数组中
+        //std::cout << tmp << std::endl;
     }   
     else  
     {   
@@ -65,30 +45,21 @@ void Producer::getCSInformation(){
     }
     pclose(ptr);   
     ptr = NULL;
+
+    std::string tmp_str(tmp); //转化成string,容易进行操作
+    int start = tmp_str.find("<fib>"); 
+    m_dataContent = "<nodeStatus>" + 
+                    tmp_str.substr(start, (tmp_str.find("<strategyChoices>") - start)) +
+                    "</nodeStatus>";
+    // std::cout << m_dataContent <<std::endl;
+    // std::cout << m_dataContent.size() <<std::endl;
 }
 
 void Producer::onInterest(const ndn::Interest & interest){
     ndn::Name dataName(interest.getName());
-    /** 按需请求
-    std::cout << dataName << std::endl;
-    std::string option = dataName.at(-1).toUri(); //按需请求的标志
-    std::cout << option << std::endl;
-    if(option == "dataset"){
-        m_dataContent = new char [ALL_CONTENT_LENGTH]; //动态分配10KB空间
-        getAllInformation();
-        createAndSendData(dataName);
-    }
-    else if(option == "cs"){
-        m_dataContent = new char [PART_CONTENT_LENGTH]; //动态分配1024字节空间
-        getCSInformation();
-        createAndSendData(dataName);
-    }
-    else{
-        std::cout << "no match" << std::endl;
-    }
-    */
-    m_dataContent = new char [PART_CONTENT_LENGTH]; //动态分配1024字节空间
-    getCSInformation();
+    std::cout<<" receive interest: "<< dataName <<std::endl;
+    m_dataContent = new char[PART_CONTENT_LENGTH]; //动态分配1024字节空间
+    getNFDInformation();
     createAndSendData(dataName);
 }
 
@@ -101,9 +72,7 @@ void Producer::createAndSendData(const ndn::Name &dataName){
     auto data = std::make_shared<ndn::Data>();
     data->setName(dataName);
     data->setFreshnessPeriod(ndn::time::milliseconds(1000)); //Data包生存期1s
-    std::cout << strlen(m_dataContent) << std::endl;
-    data->setContent((const uint8_t *)m_dataContent, strlen(m_dataContent));
-    delete [] m_dataContent; //释放内存
+    data->setContent((const uint8_t *)&m_dataContent[0], m_dataContent.size());
     m_keyChain.sign(*data, ndn::signingWithSha256());
     m_face.put(*data);
 }

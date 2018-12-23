@@ -1,33 +1,107 @@
 #include <ndn-cxx/util/time.hpp>
 #include <ndn-cxx/interest.hpp>
+//qt
+#include <QDomDocument>
+#include <QFile>
 
 #include "ndn_client.hpp"
 
 Client::Client(ndn::Face& face)
-: m_face(face){}
+: m_face(face)
+{}
 
 void Client::onData(const ndn::Data &data){
     std::cout << " recevice data " << std::endl;
-    /** 按需请求对数据的处理
-    ndn::Name dataName = data.getName();
-    if(dataName.at(-1).toUri() == "dataset"){
-        std::cout << "receive data for dataset" << std::endl;
-        //TODO：这里会收到分段的数据，怎么处理
-    }
-    else{
-        //const ndn::Block &dataContent = ;
-        std::string dataContent((const char *)data.getContent().value()); //取出内容并转化成字符串形式
-        std::cout << dataContent << std::endl;
-    }
-    */
     for(std::shared_ptr<NodeEntry> &entry : m_nodeEntryList){
         if(entry->getNodePrefix().equals(data.getName())){
-            std::cout << entry->getNodeName() << ":" <<std::endl;
             std::string dataContent((const char *)data.getContent().value()); //取出内容并转化成字符串形式
-            std::cout << dataContent << std::endl;
+            /**
+             * 截取子字符串
+             * 目的是去除后面的乱码, 有乱码的话没办法进行xml解析
+            */
+            entry->setNodeStatus(dataContent.substr(0, dataContent.find("</nodeStatus>") + 13));
+            std::cout << entry->getNodeName() << ":" <<std::endl;
+            std::cout << entry->getNodeStatus() << std::endl;
+            parseXML(entry->getNodeStatus());
         }
     }
 
+}
+
+void Client::parseXML(const std::string & strXML){
+    QDomDocument doc;
+    if(!doc.setContent(QString::fromStdString(strXML)))
+    {
+        std::cout << "read xml string error" << std::endl;
+        return;
+    }
+    QDomNode node = doc.firstChild().firstChild(); //第二级子节点
+    while(!node.isNull() && node.isElement())
+    {
+        if(node.nodeName() == "fib"){ //fib信息
+            QDomNodeList fibEntrys = node.childNodes();
+            for(int i = 0; i<fibEntrys.count(); i++)
+            {
+                QDomNode fibEntry = fibEntrys.at(i);
+                if(fibEntry.isElement()){
+                    QDomElement prefix = fibEntry.namedItem("prefix").toElement(); //prefix
+                    std::cout << prefix.text().toStdString() << std::endl;
+
+                    QDomNodeList nextHops = fibEntry.namedItem("nextHops").childNodes(); //nextHops,可能存在多条
+                    for(int j = 0; j<nextHops.count(); j++){
+                        QDomNode nextHop = nextHops.at(j);
+                        if(nextHop.isElement()){
+                            QDomElement faceId = nextHop.namedItem("faceId").toElement(); //faceId
+                            std::cout << faceId.text().toStdString() << std::endl;
+                            QDomElement cost = nextHop.namedItem("cost").toElement(); //cost
+                            std::cout << cost.text().toStdString() << std::endl;
+                        }
+                    }
+                }
+            }
+        }
+        else if(node.nodeName() == "rib"){
+            QDomNodeList ribEntrys = node.childNodes();
+            for(int i = 0; i<ribEntrys.count(); i++)
+            {
+                QDomNode ribEntry = ribEntrys.at(i);
+                if(ribEntry.isElement()){
+                    QDomElement prefix = ribEntry.namedItem("prefix").toElement(); //prefix
+                    std::cout << prefix.text().toStdString() << std::endl;
+
+                    QDomNodeList routes = ribEntry.namedItem("routes").childNodes(); //routes,可能存在多条
+                    for(int j = 0; j<routes.count(); j++){
+                        QDomNode route = routes.at(j);
+                        if(route.isElement()){
+                            QDomElement faceId = route.namedItem("faceId").toElement(); //faceId
+                            std::cout << faceId.text().toStdString() << std::endl;
+                            QDomElement origin = route.namedItem("origin").toElement(); //origin
+                            std::cout << origin.text().toStdString() << std::endl;
+                            QDomElement cost = route.namedItem("cost").toElement();
+                            std::cout << cost.text().toStdString() << std::endl;
+                            QDomNode childInherit = route.namedItem("flags").firstChild();
+                            std::cout << childInherit.nodeName().toStdString() << std::endl;
+                        }
+                    }
+                }
+            }
+        }
+        else if(node.nodeName() == "cs"){
+            QDomElement capacity = node.namedItem("capacity").toElement(); //capacity
+            std::cout << capacity.text().toStdString() << std::endl;
+            QDomElement nEntries = node.namedItem("nEntries").toElement(); //nEntries
+            std::cout << nEntries.text().toStdString() << std::endl;
+            QDomElement nHits = node.namedItem("nHits").toElement(); //nHits
+            std::cout << nHits.text().toStdString();
+            QDomElement nMisses = node.namedItem("nMisses").toElement(); //nMisses
+            std::cout << nMisses.text().toStdString() << std::endl;
+        }
+        else{
+            std::cout << "error";
+        }
+
+        node=node.nextSibling(); //下一个兄弟节点
+    }
 }
 
 void Client::onNack(){
@@ -41,9 +115,6 @@ void Client::onTimeOut(){
 
 void Client::createAndSendInterest(){
     for (const std::shared_ptr<NodeEntry> & entry : m_nodeEntryList){ //向每个节点都发送Interest
-        /**
-         * TODO:这里先默认请求cs information, 之后考虑通过什么样的方式决定请求的内容
-        */
         ndn::Interest interest(entry->getNodePrefix()); //创建Interest对象，代表一个Interest包
         std::cout<<" interest's prefix is "<<interest.getName()<<std::endl;
 
