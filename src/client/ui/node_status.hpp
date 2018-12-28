@@ -16,6 +16,11 @@ public:
     explicit NodeStatus(QWidget *parent = 0);
     ~NodeStatus();
 
+    /**
+     * @brief 解析参数xml字符串，并在表格中填充数据
+    */
+    void addContents(const std::string & strXML);
+
 private:
     Ui::NodeStatus *ui;
     QStandardItemModel * n_FIBModel;

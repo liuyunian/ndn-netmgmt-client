@@ -17,7 +17,7 @@ private:
 public: 
     /* @brief 构造函数*/
     Client(ndn::Face& face);
-    void parseXML(const std::string & strXML); 
+    // void parseXML(const std::string & strXML); 
     void start();
 
 private: //内部调用的函数，私有

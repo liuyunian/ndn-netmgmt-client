@@ -36,8 +36,8 @@ void CollectInformation::on_ButtonBox_accepted(){
    }
    else{
         c_client->start(); //客户端开始发送Interest包获取节点信息
-        // DisplayStatus * display = new DisplayStatus(c_client);
-        // display -> showMaximized(); //窗口最大化显示
+        DisplayStatus * display = new DisplayStatus(c_client);
+        display -> showMaximized(); //窗口最大化显示
         this->close(); //关闭窗口
    }
 }

@@ -15,10 +15,10 @@ DisplayStatus::DisplayStatus(std::shared_ptr<Client> & client, QWidget *parent) 
 {
     ui->setupUi(this);
     for(std::shared_ptr<NodeEntry> &entry : d_client->m_nodeEntryList){
-        NodeStatus * node = new NodeStatus();
+        // NodeStatus * node = new NodeStatus();
         //TODO：填充数据
-        node->setTitle(QString::fromStdString(entry->getNodeName()));
-        this->ui->verticalLayout->addWidget(node);
+        entry->m_nodeStatus->setTitle(QString::fromStdString(entry->getNodeName()));
+        this->ui->verticalLayout->addWidget(entry->m_nodeStatus);
     }
 }
 

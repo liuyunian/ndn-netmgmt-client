@@ -3,9 +3,13 @@
 
 #include <ndn-cxx/name.hpp>
 
+#include "node_status.hpp"
+
 class NodeEntry{
 public:
     NodeEntry(const std::string & name, const std::string & prefxi);
+
+    ~NodeEntry();
 
     /**
      * @brief 获取节点名称
@@ -20,17 +24,20 @@ public:
     /**
      * @brief 设置节点的状态信息
     */
-    void setNodeStatus(const std::string & status){m_status = status;}
+    // void setNodeStatus(const std::string & status){m_status = status;}
 
     /**
      * @brief 获取节点的状态信息
     */
-    std::string getNodeStatus(){return m_status;}
+    // std::string getNodeStatus(){return m_status;}
+
+public:
+    NodeStatus * m_nodeStatus;
 
 private:
     std::string m_nodeName;
     ndn::Name m_prefix;
-    std::string m_status;
+    // std::string m_status;
 };
 
 #endif
