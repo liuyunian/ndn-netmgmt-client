@@ -17,17 +17,15 @@ public:
 private:
     ndn::Face& m_face; //接口
     ndn::util::scheduler::Scheduler m_scheduler; //调度
-	ndn::util::scheduler::ScopedEventId m_nextNodeEvent; //向下一个节点发送Interest事件
-    // scheduler::ScopedEventId m_nextRequestEvent; //下一次请求节点状态事件
+    ndn::util::scheduler::ScopedEventId m_nextRequestEvent; //下一次请求节点状态事件
 
 public: 
     /* @brief 构造函数*/
     Client(ndn::Face& face);
-    void start();
+    void startRequest();
 
 private: //内部调用的函数，私有
-    void scheduleNextNode();
-    void createAndSendInterest(const ndn::Name & prefix);
+    void createAndSendInterest();
     void onData(const ndn::Data &data);
     void onNack();
     void onTimeOut();

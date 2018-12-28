@@ -35,10 +35,10 @@ void CollectInformation::on_ButtonBox_accepted(){
        this->ui->NodeInforDisplay->append("please add some node information!");
    }
    else{
-        c_client->start(); //客户端开始发送Interest包获取节点信息
+        this->close(); //关闭窗口
+        c_client->startRequest(); //客户端开始发送Interest包获取节点信息
         DisplayStatus * display = new DisplayStatus(c_client);
         display -> showMaximized(); //窗口最大化显示
-        this->close(); //关闭窗口
    }
 }
 

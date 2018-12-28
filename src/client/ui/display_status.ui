@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1300</width>
-    <height>800</height>
+    <width>1360</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -16,32 +16,54 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::NoContextMenu</enum>
+  </property>
   <property name="windowTitle">
-   <string>DisplayStatus</string>
+   <string>节点状态展示</string>
   </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
   </property>
-  <widget class="QWidget" name="verticalLayoutWidget">
+  <widget class="QScrollArea" name="scrollArea">
    <property name="geometry">
     <rect>
-     <x>-1</x>
-     <y>-1</y>
-     <width>1301</width>
-     <height>801</height>
+     <x>0</x>
+     <y>0</y>
+     <width>1360</width>
+     <height>900</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <property name="leftMargin">
-     <number>50</number>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1358</width>
+      <height>898</height>
+     </rect>
     </property>
-    <property name="topMargin">
-     <number>20</number>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
-    <property name="bottomMargin">
-     <number>10</number>
-    </property>
-   </layout>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>20</number>
+     </property>
+     <property name="leftMargin">
+      <number>20</number>
+     </property>
+     <property name="topMargin">
+      <number>20</number>
+     </property>
+    </layout>
+   </widget>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

@@ -15,9 +15,8 @@ DisplayStatus::DisplayStatus(std::shared_ptr<Client> & client, QWidget *parent) 
 {
     ui->setupUi(this);
     for(std::shared_ptr<NodeEntry> &entry : d_client->m_nodeEntryList){
-        // NodeStatus * node = new NodeStatus();
         //TODO：填充数据
-        entry->m_nodeStatus->setTitle(QString::fromStdString(entry->getNodeName()));
+        entry->m_nodeStatus->setTitle(QString::fromStdString(entry->getNodeName() + ":" + entry->getNodePrefix().toUri()));
         this->ui->verticalLayout->addWidget(entry->m_nodeStatus);
     }
 }
