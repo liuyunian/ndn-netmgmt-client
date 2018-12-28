@@ -1,8 +1,11 @@
 #ifndef NDN_CLIENT_H_
 #define NDN_CLIENT_H_
 #include <iostream>
-#include <boost/asio.hpp> //boost库中的asio库，主要用于异步IO
+// #include <boost/asio.hpp> //boost库中的asio库，主要用于异步IO
+
 #include <ndn-cxx/face.hpp> //ndn-cxx face模块
+#include <ndn-cxx/util/scheduler.hpp> //ndn-cxx 调度模块
+#include <ndn-cxx/util/scheduler-scoped-event-id.hpp> //ndn-cxx 调度范围事件
 
 #include "node_entry.hpp"
 
@@ -13,15 +16,18 @@ public:
 
 private:
     ndn::Face& m_face; //接口
+    ndn::util::scheduler::Scheduler m_scheduler; //调度
+	ndn::util::scheduler::ScopedEventId m_nextNodeEvent; //向下一个节点发送Interest事件
+    // scheduler::ScopedEventId m_nextRequestEvent; //下一次请求节点状态事件
 
 public: 
     /* @brief 构造函数*/
     Client(ndn::Face& face);
-    // void parseXML(const std::string & strXML); 
     void start();
 
 private: //内部调用的函数，私有
-    void createAndSendInterest();
+    void scheduleNextNode();
+    void createAndSendInterest(const ndn::Name & prefix);
     void onData(const ndn::Data &data);
     void onNack();
     void onTimeOut();

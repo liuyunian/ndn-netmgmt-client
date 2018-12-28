@@ -8,7 +8,6 @@ m_keyChain(keyChain)
 {}
 
 void Producer::setPrefix(const std::string &prefix){
-    //std::cout << prefix << std::endl;
     m_prefix = ndn::Name(prefix);
 }
 
@@ -37,7 +36,6 @@ void Producer::getNFDInformation(){
     if((ptr=popen(cmd.c_str(), "r"))!=NULL)   
     {   
         fgets(tmp, ALL_CONTENT_LENGTH, ptr); //将全部的信息都存到临时tmp字符数组中
-        //std::cout << tmp << std::endl;
     }   
     else  
     {   
@@ -51,8 +49,6 @@ void Producer::getNFDInformation(){
     m_dataContent = "<nodeStatus>" + 
                     tmp_str.substr(start, (tmp_str.find("<strategyChoices>") - start)) +
                     "</nodeStatus>";
-    // std::cout << m_dataContent <<std::endl;
-    // std::cout << m_dataContent.size() <<std::endl;
 }
 
 void Producer::onInterest(const ndn::Interest & interest){

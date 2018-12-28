@@ -17,7 +17,6 @@ def build(bld): # 创建一个任务生成器，用来生成下面的任务
         source=bld.path.ant_glob(['src/client/*.cpp', 'src/client/ui/*.cpp', 'src/client/ui/*.ui']),
         includes = ". ./src/client ./src/client/ui",
         use='NDN_CXX QT5CORE QT5GUI QT5OPENGL QT5SVG QT5BASE QT5XML', # 使用的库名
-        # use='QTCORE QTGUI QTWIDGETS QTSQL NDN_CXX' # qt4的库
     )
 
     bld.program(

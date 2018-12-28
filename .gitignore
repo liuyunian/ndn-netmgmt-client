@@ -12,4 +12,4 @@ waf3-*-*/
 .vscode/
 
 #build file
-build/*
+build/
