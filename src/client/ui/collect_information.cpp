@@ -4,6 +4,8 @@
 
 #include "display_status.hpp"
 
+#include <thread>
+
 CollectInformation::CollectInformation(std::shared_ptr<Client> & client, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::CollectInformation),
@@ -17,6 +19,11 @@ CollectInformation::~CollectInformation()
 {
     delete ui;
 }
+
+// static void displayThreadFunction(CollectInformation * ci){
+//     DisplayStatus * display = new DisplayStatus(ci->c_client);
+//     display -> showMaximized(); //窗口最大化显示
+// }
 
 void CollectInformation::on_AddNodeInfor_clicked(){
     QString nodeName = this->ui->NodeName->text();
@@ -39,6 +46,8 @@ void CollectInformation::on_ButtonBox_accepted(){
         c_client->startRequest(); //客户端开始发送Interest包获取节点信息
         DisplayStatus * display = new DisplayStatus(c_client);
         display -> showMaximized(); //窗口最大化显示
+        // std::thread displayThread(displayThreadFunction, this);
+        // displayThread.join();
    }
 }
 

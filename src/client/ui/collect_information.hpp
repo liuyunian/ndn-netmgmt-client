@@ -25,9 +25,11 @@ private slots:
 
     void on_ButtonBox_rejected();
 
+public:
+    std::shared_ptr<Client> c_client;
+
 private:
     Ui::CollectInformation *ui;
-    std::shared_ptr<Client> c_client;
 };
 
 #endif // COLLECT_INFORMATION_H

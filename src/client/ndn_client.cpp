@@ -4,9 +4,9 @@
 #include "ndn_client.hpp"
 
 Client::Client(ndn::Face& face):
-m_face(face),
-m_scheduler(m_face.getIoService()),
-m_nextRequestEvent(m_scheduler)
+m_face(face) // ,
+// m_scheduler(m_face.getIoService()),
+// m_nextRequestEvent(m_scheduler)
 {}
 
 void Client::onData(const ndn::Data &data){
@@ -53,7 +53,7 @@ void Client::createAndSendInterest(){
             std::cerr << "ERROR: " << e.what() << std::endl;
         }
     }    
-    m_nextRequestEvent = m_scheduler.scheduleEvent(ndn::time::milliseconds(10000), std::bind(&Client::createAndSendInterest, this));
+    // m_nextRequestEvent = m_scheduler.scheduleEvent(ndn::time::milliseconds(10000), std::bind(&Client::createAndSendInterest, this));
 }
 
 void Client::startRequest()

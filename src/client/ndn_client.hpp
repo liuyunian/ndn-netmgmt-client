@@ -4,8 +4,8 @@
 // #include <boost/asio.hpp> //boost库中的asio库，主要用于异步IO
 
 #include <ndn-cxx/face.hpp> //ndn-cxx face模块
-#include <ndn-cxx/util/scheduler.hpp> //ndn-cxx 调度模块
-#include <ndn-cxx/util/scheduler-scoped-event-id.hpp> //ndn-cxx 调度范围事件
+// #include <ndn-cxx/util/scheduler.hpp> //ndn-cxx 调度模块
+// #include <ndn-cxx/util/scheduler-scoped-event-id.hpp> //ndn-cxx 调度范围事件
 
 #include "node_entry.hpp"
 
@@ -16,8 +16,8 @@ public:
 
 private:
     ndn::Face& m_face; //接口
-    ndn::util::scheduler::Scheduler m_scheduler; //调度
-    ndn::util::scheduler::ScopedEventId m_nextRequestEvent; //下一次请求节点状态事件
+    // ndn::util::scheduler::Scheduler m_scheduler; //调度
+    // ndn::util::scheduler::ScopedEventId m_nextRequestEvent; //下一次请求节点状态事件
 
 public: 
     /* @brief 构造函数*/

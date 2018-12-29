@@ -17,6 +17,9 @@ public:
     explicit DisplayStatus(std::shared_ptr<Client> & client, QWidget *parent = 0);
     ~DisplayStatus();
 
+private slots:
+    void on_refresh_clicked();
+
 private:
     Ui::DisplayStatus *ui;
     std::shared_ptr<Client> d_client;

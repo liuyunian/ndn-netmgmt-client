@@ -1,12 +1,13 @@
 #include "display_status.hpp"
 #include "ui_display_status.h"
+#include <src/client/ui/display_status.moc>
 
 #include "node_status.hpp"
 #include "ui_node_status.h"
 
-#include <src/client/ui/display_status.moc>
-
 #include "node_entry.hpp"
+
+#include <iostream>
 
 DisplayStatus::DisplayStatus(std::shared_ptr<Client> & client, QWidget *parent) :
     QWidget(parent),
@@ -26,3 +27,7 @@ DisplayStatus::~DisplayStatus()
     delete ui;
 }
 
+void DisplayStatus::on_refresh_clicked(){
+    // std::cout << "click" << std::endl;
+    d_client->startRequest(); //客户端开始发送Interest包获取节点信息
+}
