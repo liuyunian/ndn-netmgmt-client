@@ -64,7 +64,6 @@ void NodeStatus::addContents(const std::string & strXML){
                 QDomNode fibEntry = fibEntrys.at(i);
                 if(fibEntry.isElement()){
                     QDomElement prefix = fibEntry.namedItem("prefix").toElement(); //prefix
-                    // std::cout << prefix.text().toStdString() << std::endl;
                     n_FIBModel->setItem(i, 0, new QStandardItem(prefix.text())); //在FIB表格中显示prefix
 
                     QDomNodeList nextHops = fibEntry.namedItem("nextHops").childNodes(); //nextHops,可能存在多条
@@ -72,10 +71,8 @@ void NodeStatus::addContents(const std::string & strXML){
                         QDomNode nextHop = nextHops.at(j);
                         if(nextHop.isElement()){
                             QDomElement faceId = nextHop.namedItem("faceId").toElement(); //faceId
-                            // std::cout << faceId.text().toStdString() << std::endl;
                             n_FIBModel->setItem(i, 1, new QStandardItem(faceId.text())); //在FIB表格中显示faceId
                             QDomElement cost = nextHop.namedItem("cost").toElement(); //cost
-                            // std::cout << cost.text().toStdString() << std::endl;
                             n_FIBModel->setItem(i, 2, new QStandardItem(cost.text())); //在FIB表格中显示cost
                         }
                     }
@@ -90,23 +87,18 @@ void NodeStatus::addContents(const std::string & strXML){
                 QDomNode ribEntry = ribEntrys.at(i);
                 if(ribEntry.isElement()){
                     QDomElement prefix = ribEntry.namedItem("prefix").toElement(); //prefix
-                    // std::cout << prefix.text().toStdString() << std::endl;
                     n_RIBModel->setItem(i, 0, new QStandardItem(prefix.text())); //在RIB表格中显示prefix
                     QDomNodeList routes = ribEntry.namedItem("routes").childNodes(); //routes,可能存在多条
                     for(int j = 0; j<routes.count(); j++){
                         QDomNode route = routes.at(j);
                         if(route.isElement()){
                             QDomElement faceId = route.namedItem("faceId").toElement(); //faceId
-                            // std::cout << faceId.text().toStdString() << std::endl;
                             n_RIBModel->setItem(i, 1, new QStandardItem(faceId.text())); //在RIB表格中显示faceId
                             QDomElement origin = route.namedItem("origin").toElement(); //origin
-                            // std::cout << origin.text().toStdString() << std::endl;
                             n_RIBModel->setItem(i, 2, new QStandardItem(origin.text())); //在RIB表格中显示origin
                             QDomElement cost = route.namedItem("cost").toElement();
-                            // std::cout << cost.text().toStdString() << std::endl;
                             n_RIBModel->setItem(i, 3, new QStandardItem(cost.text())); //在RIB表格中显示cost
                             // QDomNode childInherit = route.namedItem("flags").firstChild(); //路由继承标志
-                            // std::cout << childInherit.nodeName().toStdString() << std::endl;
                             n_RIBModel->setItem(i, 4, new QStandardItem("Y")); //在RIB表格中显示ChildInherit
                             n_RIBModel->setItem(i, 5, new QStandardItem("Never")); //在RIB表格中显示Expires in
                         }
@@ -116,17 +108,13 @@ void NodeStatus::addContents(const std::string & strXML){
         }
         else if(node.nodeName() == "cs"){ //cs信息
             QDomElement capacity = node.namedItem("capacity").toElement(); //capacity
-            // std::cout << capacity.text().toStdString() << std::endl;
             n_CSModel->setItem(0, 0, new QStandardItem(capacity.text()));
             QDomElement nEntries = node.namedItem("nEntries").toElement(); //nEntries
-            // std::cout << nEntries.text().toStdString() << std::endl;
             n_CSModel->setItem(0, 1, new QStandardItem(nEntries.text()));
             QDomElement nHits = node.namedItem("nHits").toElement(); //nHits
-            // std::cout << nHits.text().toStdString();
             n_CSModel->setItem(0, 2, new QStandardItem(nHits.text()));
             QDomElement nMisses = node.namedItem("nMisses").toElement(); //nMisses
-            // std::cout << nMisses.text().toStdString() << std::endl;
-            n_CSModel->setItem(0, 3, new QStandardItem(nMisses.text()));
+            n_CSModel->setItem(0, 3, new QStandardItem(nMisses.text().mid(0, (nMisses.text().length()-1))));
         }
         else{
             std::cout << "error" << std::endl;

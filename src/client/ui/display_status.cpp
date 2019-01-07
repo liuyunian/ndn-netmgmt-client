@@ -9,16 +9,37 @@
 
 #include <iostream>
 
-DisplayStatus::DisplayStatus(std::shared_ptr<Client> & client, QWidget *parent) :
+DisplayStatus::DisplayStatus(std::shared_ptr<Management> management, 
+                            std::shared_ptr<RequestThread> request, 
+                            QWidget *parent) :
     QWidget(parent),
     ui(new Ui::DisplayStatus),
-    d_client(client)
+    d_management(management)
 {
     ui->setupUi(this);
-    for(std::shared_ptr<NodeEntry> &entry : d_client->m_nodeEntryList){
-        //TODO：填充数据
-        entry->m_nodeStatus->setTitle(QString::fromStdString(entry->getNodeName() + ":" + entry->getNodePrefix().toUri()));
-        this->ui->verticalLayout->addWidget(entry->m_nodeStatus);
+
+    /**
+     * 当请求线程收到数据包并将节点状态信息存储在NodeEntry对象之后会触发显示
+     * 信号的发送者：request, 接受者：this
+    */
+    connect(request.get(), SIGNAL(displayNodeStatus(int)), 
+            this, SLOT(onDisplayStatus(int)), 
+            Qt::QueuedConnection); 
+
+    /**
+     * 当点击refresh按钮之后，触发请求线程立即请求节点状态
+     * 信号的发送者：this, 接受者：request
+    */
+    
+    connect(this, SIGNAL(requestImmediately()), 
+            request.get(), SLOT(onRequestImmediately()), 
+            Qt::QueuedConnection); 
+
+    for(std::shared_ptr<NodeEntry> &entry : d_management->m_nodeEntryList){
+        std::shared_ptr<NodeStatus> nodeStatus = std::make_shared<NodeStatus>();
+        nodeStatus -> setTitle(QString::fromStdString(entry->getNodeName() + ":" + entry->getNodePrefix().toUri()));
+        entry->setNodeStatusDisplay(nodeStatus);
+        this->ui->verticalLayout->addWidget(nodeStatus.get());
     }
 }
 
@@ -28,6 +49,21 @@ DisplayStatus::~DisplayStatus()
 }
 
 void DisplayStatus::on_refresh_clicked(){
-    // std::cout << "click" << std::endl;
-    d_client->startRequest(); //客户端开始发送Interest包获取节点信息
+    emit requestImmediately();
+}
+
+/**
+ * TODO: 信号与槽传递的参数最优的方式是直接传递entry指针
+ * 由于qt信号与槽的机制原因，会报错
+ * 这里需要进一步了解原因进行优化
+*/
+void DisplayStatus::onDisplayStatus(int index){
+    int count = 0;
+    for(std::shared_ptr<NodeEntry> &entry : d_management->m_nodeEntryList){
+        count++;
+        if(count == index){
+            entry->getNodeStatusDisplay()->addContents(entry->getNodeStatusInfor());
+        }
+    }
+    
 }

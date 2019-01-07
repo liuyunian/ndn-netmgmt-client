@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QLayout>
 
-#include "ndn_client.hpp"
+#include "ndn_management.hpp"
 
 namespace Ui {
 class CollectInformation;
@@ -15,7 +15,7 @@ class CollectInformation : public QDialog
     Q_OBJECT
 
 public:
-    explicit CollectInformation(std::shared_ptr<Client> & client, QWidget *parent = 0);
+    explicit CollectInformation(const std::shared_ptr<Management> management, QWidget *parent = 0);
     ~CollectInformation();
 
 private slots:
@@ -25,11 +25,9 @@ private slots:
 
     void on_ButtonBox_rejected();
 
-public:
-    std::shared_ptr<Client> c_client;
-
 private:
     Ui::CollectInformation *ui;
+    std::shared_ptr<Management> c_management;
 };
 
 #endif // COLLECT_INFORMATION_H
