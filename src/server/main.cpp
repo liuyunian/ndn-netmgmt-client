@@ -6,8 +6,7 @@
 #include <ndn-cxx/face.hpp>
 #include <ndn-cxx/util/io.hpp>
 
-#include "ndn_producer.hpp"
-#include "ndn_capture.hpp"
+#include "ndn_server.hpp"
 
 void usage(const boost::program_options::options_description &options){
     std::cout << "Usage: sudo build/server [options] <prefix> \n";
@@ -16,12 +15,8 @@ void usage(const boost::program_options::options_description &options){
 }
 
 int main(int argc, char* argv[]){
-    boost::asio::io_service io;
-    ndn::Face face(io);
-    ndn::KeyChain keyChain; //提供了一个接口用来管理与包签名有关的实体，比如Identity, Key, and Certificates
+    Server server;
 
-    Producer producer(face, keyChain);
-    
     namespace po = boost::program_options;
     
     po::options_description visibleOptDesc("Allowed options");
@@ -36,8 +31,10 @@ int main(int argc, char* argv[]){
     }
     
     if(optVm.count("prefix")){
-        producer.setPrefix(optVm["prefix"].as<std::string>());
+        server.setPrefix(optVm["prefix"].as<std::string>());
     }
-    producer.start();
+    
+    server.run();
+    
     return 0;
 }
