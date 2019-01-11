@@ -7,9 +7,10 @@
 #include <ndn-cxx/util/io.hpp>
 
 #include "ndn_producer.hpp"
+#include "ndn_capture.hpp"
 
 void usage(const boost::program_options::options_description &options){
-    std::cout << "Usage: server [options] <prefix> \n";
+    std::cout << "Usage: sudo build/server [options] <prefix> \n";
     std::cout << options;
     exit(0); //参数0表示正常退出
 }
@@ -37,7 +38,6 @@ int main(int argc, char* argv[]){
     if(optVm.count("prefix")){
         producer.setPrefix(optVm["prefix"].as<std::string>());
     }
-
     producer.start();
     return 0;
 }

@@ -4,79 +4,63 @@
 #include "request_thread.hpp"
 #include <src/client/request_thread.moc>
 
-RequestThread::RequestThread(std::shared_ptr<Management> management):
+RequestThread::RequestThread(std::string & prefix, std::string & command): //Name of Interest is "prefix/r_requestCommand"
 r_scheduler(r_face.getIoService()),
-r_management(management),
-r_canRequestImmediately(false)
-{}
+r_requestCommand(command)
+{
+    r_interestName = ndn::Name(prefix).append(command);
+}
 
 void RequestThread::startRequest(){
-    createAndSendInterest();
+    if(r_requestCommand == "CS" || r_requestCommand == "route"){
+        requestRouteOrCS();
+    }
     r_face.processEvents();
 }
 
-void RequestThread::createAndSendInterest(){
-    r_canRequestImmediately = false; //保证发送Interest包期间不能触发立刻请求事件
+void RequestThread::requestRouteOrCS(){
+    ndn::Interest interest(r_interestName);
+    std::cout << "send interest: " << r_interestName << std::endl;
 
-    for (const std::shared_ptr<NodeEntry> & entry : r_management->m_nodeEntryList){
-        ndn::Interest interest(entry->getNodePrefix());
+    interest.setCanBePrefix(false);
+    interest.setMustBeFresh(true);
+    interest.setInterestLifetime(ndn::time::milliseconds(2000));
+    interest.setNonce(std::rand());
 
-        interest.setCanBePrefix(false);
-        interest.setMustBeFresh(true);
-        interest.setInterestLifetime(ndn::time::milliseconds(1000));
-        interest.setNonce(std::rand());
-
-        try {
-            r_face.expressInterest(interest,
-            std::bind(&RequestThread::onData, this, _2), 
-            std::bind(&RequestThread::onNack, this), 
-            std::bind(&RequestThread::onTimeOut, this));
-        }
-        catch (std::exception& e) {
-            std::cerr << "ERROR: " << e.what() << std::endl;
-        }
+    try {
+        r_face.expressInterest(interest,
+        std::bind(&RequestThread::onData, this, _2), 
+        std::bind(&RequestThread::onNack, this), 
+        std::bind(&RequestThread::onTimeOut, this));
     }
-    /**
-     * 5秒请求一次
-     * r_nextRequestEventId用于取消调度
-    */
-    r_nextRequestEventId = r_scheduler.scheduleEvent(ndn::time::milliseconds(5000), std::bind(&RequestThread::createAndSendInterest, this));
-    r_canRequestImmediately = true; //进入调度之后可以触发立刻请求事件
-}
-
-//private slots
-void RequestThread::onRequestImmediately(){
-    if(r_canRequestImmediately){
-        r_scheduler.cancelEvent(r_nextRequestEventId);
-        std::cout << "触发立刻请求事件" << std::endl;
-
-        /**
-         * 再次执行createAndSendInterest会在r_nextRequestEventId = r_scheduler.scheduleEvent...处报错
-         * 错误信息是：段错误（核心已转出）
-         * 原因：无法访问r_scheduler
-        */
-        // createAndSendInterest();
+    catch (std::exception& e) {
+        std::cerr << "ERROR: " << e.what() << std::endl;
     }
+
+    r_scheduler.scheduleEvent(ndn::time::milliseconds(5000), std::bind(&RequestThread::requestRouteOrCS, this));
 }
 
 void RequestThread::onData(const ndn::Data &data){
-    int index = 0; //用来告知主线程收到了哪个节点的状态信息
-    for(std::shared_ptr<NodeEntry> &entry : r_management->m_nodeEntryList){
-        index++;
-        if(entry->getNodePrefix().equals(data.getName())){
-            std::string dataContent((const char *)data.getContent().value()); //取出内容并转化成字符串形式
-            /**
-             * 截取子字符串
-             * 目的是去除后面的乱码, 有乱码的话没办法进行xml解析
-            */
-            entry->setNodeStatusInfor(dataContent.substr(0, dataContent.find("</nodeStatus>") + 13));
-            /**
-             * TODO:触发主线程解析并显示数据
-             * 执行之前Data中的数据已经以字符串的形式存储在NodeEntry对象中
-            */
-            emit displayNodeStatus(index);
-            break;
-        }
+    std::string dataContent((const char *)data.getContent().value()); //取出内容并转化成字符串形式
+    std::string commandField = data.getName().at(-1).toUri();
+    if(commandField == "route"){
+        /**
+        * 截取子字符串
+        * 目的是去除后面的乱码, 有乱码的话没办法进行xml解析
+        */
+        std::string routeInfor = dataContent.substr(0, dataContent.find("</routeInfor>") + 13);
+        /**
+        * TODO:触发主线程解析并显示路由信息
+        * 执行之前Data中的数据已经以字符串的形式存储在Node对象中
+        */
+        emit displayRouteInfor(QString::fromStdString(routeInfor));           
+    }
+    else if(commandField == "CS"){
+        std::string CSInfor = dataContent.substr(0, dataContent.find("</CSInfor>") + 10);
+        emit displayCSInfor(QString::fromStdString(CSInfor));
+    }
+    else{
+        std::cerr << "no match function to deal with this data" << std::endl;
     }
 }
 

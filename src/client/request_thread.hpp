@@ -4,8 +4,7 @@
 #include <ndn-cxx/face.hpp>
 #include <ndn-cxx/util/scheduler.hpp>
 #include <QObject>
-
-#include "ndn_management.hpp"
+#include <QString>
 
 /**
  * RequestThread请求子线程
@@ -15,17 +14,15 @@ class RequestThread : public QObject{
     Q_OBJECT //如果要用信号与槽机制必须要加这句话
 
 public:
-    RequestThread(std::shared_ptr<Management> management);
+    RequestThread(std::string & prefix, std::string & command);
     void startRequest();
 
 signals:
-    void displayNodeStatus(int index);
-
-public slots:
-    void onRequestImmediately();
+    void displayRouteInfor(QString);
+    void displayCSInfor(QString);
 
 private:
-    void createAndSendInterest();
+    void requestRouteOrCS();
     void onData(const ndn::Data &data);
     void onNack();
     void onTimeOut();
@@ -33,10 +30,9 @@ private:
 private:
     ndn::Face r_face;
     ndn::util::scheduler::Scheduler r_scheduler;
-    ndn::util::scheduler::EventId r_nextRequestEventId; // 下一次请求事件ID
 
-    std::shared_ptr<Management> r_management;
-    bool r_canRequestImmediately;
+    ndn::Name r_interestName;
+    std::string r_requestCommand;
 };
 
 #endif

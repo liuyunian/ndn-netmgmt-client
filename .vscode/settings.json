@@ -57,6 +57,7 @@
         "utility": "cpp",
         "algorithm": "cpp",
         "*.ipp": "cpp",
-        "*.moc": "cpp"
+        "*.moc": "cpp",
+        "qobject": "cpp"
     }
 }

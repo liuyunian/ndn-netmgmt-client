@@ -2,10 +2,8 @@
 #include "ui_collect_information.h"
 #include <src/client/ui/collect_information.moc>
 
-#include "display_status.hpp"
-#include "request_thread.hpp"
-
-#include <thread>
+#include "network_topology.hpp"
+#include "node.hpp"
 
 CollectInformation::CollectInformation(const std::shared_ptr<Management> management, QWidget *parent) :
     QDialog(parent),
@@ -29,8 +27,8 @@ void CollectInformation::on_AddNodeInfor_clicked(){
         return;
     }
 
-    std::shared_ptr<NodeEntry> entry = std::make_shared<NodeEntry>(nodeName.toStdString(), nodePrefix.toStdString());
-    c_management->m_nodeEntryList.push_back(entry);
+    std::shared_ptr<Node> node = std::make_shared<Node>(nodeName.toStdString(), nodePrefix.toStdString());
+    c_management->m_nodeList.push_back(node);
 
     this->ui->NodeInforDisplay->append(nodeName + ": " + nodePrefix);
     this->ui->NodeName->clear();
@@ -38,30 +36,14 @@ void CollectInformation::on_AddNodeInfor_clicked(){
 }
 
 void CollectInformation::on_ButtonBox_accepted(){ //点击确定按钮
-   if(c_management->m_nodeEntryList.empty()){ //没有输入任何节点信息就点击了确认按钮
+   if(c_management->m_nodeList.empty()){ //没有输入任何节点信息就点击了确认按钮
        this->ui->NodeInforDisplay->append("please add some node information!");
    }
    else{
         this->close(); //关闭收集节点信息的窗口
-        std::shared_ptr<RequestThread> request = std::make_shared<RequestThread>(c_management);
-        /**
-         * 采用指针+用new创建对象的原因是：
-         * 如果DisplayStatus display(c_management, request)创建的display对象的生存周期是else代码块
-         * 造成的结果就是显示界面闪一下就会消失
-         * 而采用指针+用new创建对象则指针变量到期之后，其所指向的内存并没有被释放掉
-         * 这样显示界面就可以长久的存在
-         * 
-         * 这样处理好吗？有没有更好的处理方法
-        */
-        DisplayStatus * display = new DisplayStatus(c_management, request);
-        display -> showMaximized(); //展示窗口最大化显示
 
-        /**
-         * 启动子线程请求数据
-         * 为什么可以传递智能指针呢？
-         */
-        std::thread requestThread(&RequestThread::startRequest, request);
-        requestThread.detach();
+        NetworkTopology * topology = new NetworkTopology(c_management);
+        topology -> show(); //显示拓扑窗口
    }
 }
 

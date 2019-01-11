@@ -1,6 +1,11 @@
 #include <iostream>
+#include <thread>
 
 #include "ndn_producer.hpp"
+#include "ndn_capture.hpp"
+
+#define ALL_CONTENT_LENGTH 10240
+#define OUT
 
 Producer::Producer(ndn::Face& face, ndn::KeyChain& keyChain)
 :m_face(face),
@@ -29,13 +34,12 @@ void Producer::start(){
     }    
 }
 
-void Producer::getNFDInformation(){
-    std::string cmd = "nfdc status report xml";
-    char tmp[ALL_CONTENT_LENGTH];
+void Producer::getNFDInformation(OUT char * statusInfor){
+    const char * cmd = "nfdc status report xml";
     FILE * ptr; //文件指针
-    if((ptr=popen(cmd.c_str(), "r"))!=NULL)   
+    if((ptr=popen(cmd, "r"))!=NULL)   
     {   
-        fgets(tmp, ALL_CONTENT_LENGTH, ptr); //将全部的信息都存到临时tmp字符数组中
+        fgets(statusInfor, ALL_CONTENT_LENGTH, ptr); //将全部的信息都存到临时tmp字符数组中
     }   
     else  
     {   
@@ -43,20 +47,57 @@ void Producer::getNFDInformation(){
     }
     pclose(ptr);   
     ptr = NULL;
+}
 
-    std::string tmp_str(tmp); //转化成string,容易进行操作
-    int start = tmp_str.find("<fib>"); 
-    m_dataContent = "<nodeStatus>" + 
-                    tmp_str.substr(start, (tmp_str.find("<strategyChoices>") - start)) +
-                    "</nodeStatus>";
+void Producer::getRouteInformation(){
+    char * statusInfor = new char[ALL_CONTENT_LENGTH];
+    getNFDInformation(statusInfor);
+
+    std::string statusInfor_string(statusInfor);
+    int start = statusInfor_string.find("<fib>"); 
+    int length = statusInfor_string.find("<cs>") - start;
+    std::string routeInfor = "<routeInfor>" + statusInfor_string.substr(start, length) + "</routeInfor>";
+    
+    m_dataContent = new char[length+1];
+    strcpy(m_dataContent, routeInfor.c_str());
+
+    delete [] statusInfor;
+}
+
+void Producer::getCSInformation(){
+    char * statusInfor = new char[ALL_CONTENT_LENGTH];
+    getNFDInformation(statusInfor);
+
+    std::string statusInfor_string(statusInfor);
+    int start = statusInfor_string.find("<cs>"); 
+    int length = statusInfor_string.find("<strategyChoices>") - start;
+    std::string CSInfor = "<CSInfor>" + statusInfor_string.substr(start, length) + "</CSInfor>";
+    
+    m_dataContent = new char[length+1];
+    strcpy(m_dataContent, CSInfor.c_str());
+
+    delete [] statusInfor;
 }
 
 void Producer::onInterest(const ndn::Interest & interest){
-    ndn::Name dataName(interest.getName());
-    std::cout<<" receive interest: "<< dataName <<std::endl;
-    m_dataContent = new char[PART_CONTENT_LENGTH]; //动态分配1024字节空间
-    getNFDInformation();
-    createAndSendData(dataName);
+    ndn::Name interestName = interest.getName();
+    std::cout<<" receive interest: "<< interestName <<std::endl;
+    std::string clientCommand = interestName.at(-1).toUri();
+    if(clientCommand == "route"){
+        getRouteInformation();
+        createAndSendData(interestName);
+    }
+    else if(clientCommand == "CS"){
+        getCSInformation();
+        createAndSendData(interestName);
+    }
+    else{
+        std::cout << "no match operator" << std::endl;
+        // std::cout << "触发开始抓包" << std::endl;
+        // std::shared_ptr<NdnCapture> capture = std::make_shared<NdnCapture>();
+        // std::thread captureThread(&NdnCapture::run, capture);
+        // captureThread.detach();
+    }
 }
 
 void Producer::onRegisterFailed(const ndn::Name& prefix, const std::string& reason)
@@ -68,7 +109,9 @@ void Producer::createAndSendData(const ndn::Name &dataName){
     auto data = std::make_shared<ndn::Data>();
     data->setName(dataName);
     data->setFreshnessPeriod(ndn::time::milliseconds(1000)); //Data包生存期1s
-    data->setContent((const uint8_t *)&m_dataContent[0], m_dataContent.size());
+    data->setContent((const uint8_t *)m_dataContent, strlen(m_dataContent));
     m_keyChain.sign(*data, ndn::signingWithSha256());
     m_face.put(*data);
+
+    delete [] m_dataContent;
 }
