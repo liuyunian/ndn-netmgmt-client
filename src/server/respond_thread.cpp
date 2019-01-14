@@ -5,19 +5,6 @@ RespondThread::RespondThread(std::shared_ptr<ndn::Face> face, ndn::Name & name):
     r_dataName(name)
 {}
 
-void RespondThread::startRespond(){
-    std::string clientCommand = r_dataName.at(-1).toUri();
-    if(clientCommand == "route"){
-        processRouteInformationRequest();
-    }
-    else if(clientCommand == "CS"){
-        processCSInformationRequest();
-    }
-    else{
-        std::cout << "no match operator" << std::endl;
-    }
-}
-
 void RespondThread::processRouteInformationRequest(){
     char * statusInfor = new char[ALL_CONTENT_LENGTH];
     getNFDInformation(statusInfor);
@@ -29,7 +16,7 @@ void RespondThread::processRouteInformationRequest(){
     int length = statusInfor_string.find("<cs>") - start;
     std::string routeInfor = "<routeInfor>" + statusInfor_string.substr(start, length) + "</routeInfor>";
 
-    createAndSendData(routeInfor);
+    sendData(routeInfor);
 }
 
 void RespondThread::processCSInformationRequest(){
@@ -43,7 +30,26 @@ void RespondThread::processCSInformationRequest(){
     int length = statusInfor_string.find("<strategyChoices>") - start;
     std::string CSInfor = "<CSInfor>" + statusInfor_string.substr(start, length) + "</CSInfor>";
 
-    createAndSendData(CSInfor);
+    sendData(CSInfor);
+}
+
+void RespondThread::processPacketInformationRequest(std::shared_ptr<std::list<std::string>> packetListPtr, std::shared_ptr<std::mutex> mutex){
+    mutex->lock();
+    if(!packetListPtr->empty()){
+        std::string dataContent = packetListPtr->front();
+        packetListPtr->pop_front();
+        mutex->unlock();
+        sendData(dataContent);
+    }
+    else{
+        mutex->unlock();
+        sendData();
+    }
+    
+}
+
+void RespondThread::sendAckData(){
+    sendData();
 }
 
 void RespondThread::getNFDInformation(OUT char * statusInfor){
@@ -61,11 +67,20 @@ void RespondThread::getNFDInformation(OUT char * statusInfor){
     ptr = NULL;
 }
 
-void RespondThread::createAndSendData(std::string & dataContent){
+void RespondThread::sendData(std::string & dataContent){
     auto data = std::make_shared<ndn::Data>(r_dataName);
-    data->setFreshnessPeriod(ndn::time::milliseconds(2000)); //Data包生存期1s
+    data->setFreshnessPeriod(ndn::time::milliseconds(2000)); //Data包生存期2s
     data->setContent((const uint8_t *)&dataContent[0], dataContent.size());
     r_keyChain.sign(*data, ndn::signingWithSha256());
     r_face->put(*data);
 }
+
+void RespondThread::sendData(){
+    auto data = std::make_shared<ndn::Data>(r_dataName);
+    data->setFreshnessPeriod(ndn::time::milliseconds(2000)); //Data包生存期2s
+    r_keyChain.sign(*data, ndn::signingWithSha256());
+    r_face->put(*data);
+}
+
+
 

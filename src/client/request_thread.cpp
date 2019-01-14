@@ -4,23 +4,36 @@
 #include "request_thread.hpp"
 #include <src/client/request_thread.moc>
 
-RequestThread::RequestThread(std::string & prefix, std::string & command): //Name of Interest is "prefix/r_requestCommand"
+RequestThread::RequestThread(std::string & prefix): //Name of Interest is "prefix/r_requestCommand"
 r_scheduler(r_face.getIoService()),
-r_requestCommand(command)
-{
-    r_interestName = ndn::Name(prefix).append(command);
-}
+r_prefix(prefix)
+{}
 
-void RequestThread::startRequest(){
-    if(r_requestCommand == "CS" || r_requestCommand == "route"){
-        requestRouteOrCS();
-    }
+void RequestThread::requestRouteInformation(){
+    ndn::Name interestName = ndn::Name(r_prefix).append("route");
+    timedSendInterest(interestName, 5000);
     r_face.processEvents();
 }
 
-void RequestThread::requestRouteOrCS(){
-    ndn::Interest interest(r_interestName);
-    std::cout << "send interest: " << r_interestName << std::endl;
+void RequestThread::requestCSInformation(){
+    ndn::Name interestName = ndn::Name(r_prefix).append("CS");
+    timedSendInterest(interestName, 5000);
+    r_face.processEvents();
+}
+
+void RequestThread::requestCaptureInformation(){
+    ndn::Name interestName = ndn::Name(r_prefix).append("capture-start");
+    sendInterest(interestName);
+    r_face.processEvents();
+}
+
+void RequestThread::timedSendInterest(ndn::Name & interestName, unsigned long interval){
+    sendInterest(interestName);
+    r_eventId = r_scheduler.scheduleEvent(ndn::time::milliseconds(interval), std::bind(&RequestThread::timedSendInterest, this, interestName, interval));
+}
+
+void RequestThread::sendInterest(ndn::Name & interestName){
+    ndn::Interest interest(interestName);
 
     interest.setCanBePrefix(false);
     interest.setMustBeFresh(true);
@@ -36,28 +49,35 @@ void RequestThread::requestRouteOrCS(){
     catch (std::exception& e) {
         std::cerr << "ERROR: " << e.what() << std::endl;
     }
-
-    r_scheduler.scheduleEvent(ndn::time::milliseconds(5000), std::bind(&RequestThread::requestRouteOrCS, this));
 }
 
-void RequestThread::onData(const ndn::Data &data){
-    std::string dataContent((const char *)data.getContent().value()); //取出内容并转化成字符串形式
+void RequestThread::onData(const ndn::Data & data){
+    // std::cout << "reveive Data: " << data.getName() << std::endl;
     std::string commandField = data.getName().at(-1).toUri();
     if(commandField == "route"){
-        /**
-        * 截取子字符串
-        * 目的是去除后面的乱码, 有乱码的话没办法进行xml解析
-        */
-        std::string routeInfor = dataContent.substr(0, dataContent.find("</routeInfor>") + 13);
-        /**
-        * TODO:触发主线程解析并显示路由信息
-        * 执行之前Data中的数据已经以字符串的形式存储在Node对象中
-        */
+        const ndn::Block & content = data.getContent();
+        std::string routeInfor(reinterpret_cast<const char*>(content.value()), content.value_size());
         emit displayRouteInfor(QString::fromStdString(routeInfor));           
     }
     else if(commandField == "CS"){
-        std::string CSInfor = dataContent.substr(0, dataContent.find("</CSInfor>") + 10);
+        const ndn::Block & content = data.getContent();
+        std::string CSInfor(reinterpret_cast<const char*>(content.value()), content.value_size());
         emit displayCSInfor(QString::fromStdString(CSInfor));
+    }
+    else if(commandField == "capture-start"){
+        ndn::Name interestName = ndn::Name(r_prefix).append("packet");
+        timedSendInterest(interestName, 3000); //2s请求一次
+        emit startCaptureSuccessfully();
+    }
+    else if(commandField == "packet"){
+        const ndn::Block & content = data.getContent();
+        std::string packetInfor(reinterpret_cast<const char*>(content.value()), content.value_size());
+        if(!packetInfor.empty()){
+            emit displayPacketInfor(QString::fromStdString(packetInfor));
+        }
+    }
+    else if(commandField == "capture-stop"){
+        emit finishCapture();
     }
     else{
         std::cerr << "no match function to deal with this data" << std::endl;
@@ -76,4 +96,12 @@ void RequestThread::onNack(){
 */
 void RequestThread::onTimeOut(){
     std::cout << " time out " << std::endl;
+}
+
+// public slots
+void RequestThread::on_stopCapture(){
+    r_scheduler.cancelEvent(r_eventId); 
+    ndn::Name interestName = ndn::Name(r_prefix).append("capture-stop");
+    sendInterest(interestName);
+    r_face.processEvents();
 }

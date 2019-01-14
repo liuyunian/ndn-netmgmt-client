@@ -23,14 +23,13 @@ CSInformation::CSInformation(std::string & prefix, QWidget *parent) :
     /**
      * 创建请求CS缓存信息的线程
     */
-    std::string command("CS");
-    c_requestCS = new RequestThread(c_prefix, command);
+    c_request = new RequestThread(c_prefix);
     
-    connect(c_requestCS, SIGNAL(displayCSInfor(QString)),
+    connect(c_request, SIGNAL(displayCSInfor(QString)),
             this, SLOT(on_displayCSInfor(QString)),
             Qt::QueuedConnection);
 
-    std::thread requestCSThread(&RequestThread::startRequest, c_requestCS);
+    std::thread requestCSThread(&RequestThread::requestCSInformation, c_request);
     requestCSThread.detach();
 }
 
@@ -38,7 +37,7 @@ CSInformation::~CSInformation()
 {
     delete ui;
     delete c_CSModel;
-    delete c_requestCS;
+    delete c_request;
 }
 
 void CSInformation::closeEvent(QCloseEvent * event)

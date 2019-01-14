@@ -17,12 +17,13 @@ def build(bld): # 创建一个任务生成器，用来生成下面的任务
         target='client', # 生成的可执行文件名
         source=bld.path.ant_glob(['src/client/*.cpp', 'src/client/ui/*.cpp', 'src/client/ui/*.ui']),
         includes = ". ./src/client ./src/client/ui",
-        use='NDN_CXX QT5CORE QT5GUI QT5OPENGL QT5SVG QT5BASE QT5XML', # 使用的库名
+        use='NDN_CXX QT5CORE QT5OPENGL QT5XML', # 使用的库名
     )
 
     bld.program(
-        features='cxx',
+        features='cxx qt5',
         target='server',
         source=bld.path.ant_glob(['src/server/*.cpp']),
+        includes = ". ./src/server", 
         use='NDN_CXX PCAP',
     )

@@ -3,13 +3,12 @@
 
 #include <pcap.h>
 #include <iostream>
+#include <mutex>
 
-class OutputFormatter;
+class NdnCapture{
 
-class NdnCapture
-{
-  public:
-    NdnCapture();
+public:
+    NdnCapture(std::shared_ptr<std::list<std::string>> packetListPtr, std::shared_ptr<std::mutex> mutex);
     NdnCapture(const NdnCapture & capture) = delete; //不可拷贝复制
     NdnCapture & operator = (const NdnCapture &) = delete; //不可等号复制
 
@@ -20,25 +19,22 @@ class NdnCapture
 	void printPacket(const pcap_pkthdr *pkthdr, const uint8_t *payload) const;
 
 private:
-	void
-	printTimestamp(std::ostream &os, const timeval &tv) const;
 
-	bool
-	dispatchByEtherType(OutputFormatter &out, const uint8_t *pkt, size_t len, uint16_t etherType) const;
+	bool dispatchByEtherType(const uint8_t *pkt, size_t len, uint16_t etherType, std::string & packetInformation) const;
 
-	bool
-	printEther(OutputFormatter &out, const uint8_t *pkt, size_t len) const;
+	bool printEther(const uint8_t *pkt, size_t len, std::string & packetInformation) const;
 
-	bool
-	printNdn(OutputFormatter &out, const uint8_t *pkt, size_t len) const;
+	bool printNdn(const uint8_t *pkt, size_t len, std::string & packetInformation) const;
 
-public:
+private:
 	std::string interface;
 	std::string pcapFilter;
 	bool wantPromisc;
-	bool wantTimestamp;
 	pcap_t * m_pcap;
 	int m_dataLinkType;
+
+	std::shared_ptr<std::list<std::string>> m_packetListPtr;
+	std::shared_ptr<std::mutex> m_mutex;
 };
 
 #endif

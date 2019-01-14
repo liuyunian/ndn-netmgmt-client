@@ -37,7 +37,7 @@ private:
     Ui::CSInformation *ui;
     QStandardItemModel * c_CSModel;
 
-    RequestThread * c_requestCS;
+    RequestThread * c_request;
     std::string c_prefix;
 };
 

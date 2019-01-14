@@ -14,15 +14,37 @@ class RequestThread : public QObject{
     Q_OBJECT //如果要用信号与槽机制必须要加这句话
 
 public:
-    RequestThread(std::string & prefix, std::string & command);
-    void startRequest();
+    RequestThread(std::string & prefix);
+    void requestRouteInformation();
+    void requestCSInformation();
+    void requestCaptureInformation();
 
 signals:
     void displayRouteInfor(QString);
     void displayCSInfor(QString);
+    void displayPacketInfor(QString);
+
+    void startCaptureSuccessfully();
+    void finishCapture();
+
+public slots: 
+    void on_stopCapture();
 
 private:
-    void requestRouteOrCS();
+    /**
+     * @brief 定时发送Interest
+     * @param 参数interestName: Interest包的Name
+     * @param 参数interval: 发送两次Interest包的时间间隔
+     * 
+    */
+    void timedSendInterest(ndn::Name & interestName, unsigned long interval);
+
+    /**
+     * @brief 发送单个Interest
+     * @param 参数interestName: Interest包的Name
+    */
+    void sendInterest(ndn::Name & interestName);
+    
     void onData(const ndn::Data &data);
     void onNack();
     void onTimeOut();
@@ -30,9 +52,8 @@ private:
 private:
     ndn::Face r_face;
     ndn::util::scheduler::Scheduler r_scheduler;
-
-    ndn::Name r_interestName;
-    std::string r_requestCommand;
+    ndn::util::scheduler::EventId r_eventId;
+    std::string r_prefix;
 };
 
 #endif

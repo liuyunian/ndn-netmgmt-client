@@ -22,9 +22,9 @@ void Node::on_requestRoute_clicked()
     this -> ui -> requestRoute -> setDisabled(true);
 
     n_route = new RouteInformation(n_prefix);
-
     connect(n_route, SIGNAL(closeWindow()),
             this, SLOT(on_closeRouteWindow()));
+
     n_route -> setWindowTitle(QString::fromStdString(n_nodeName + " Route Information"));
 
     n_route -> show();
@@ -44,7 +44,16 @@ void Node::on_requestCS_clicked()
 
 void Node::on_requestCapture_clicked()
 {
+    this -> ui -> requestCapture -> setDisabled(true);
 
+    n_packet = new PacketInformation(n_prefix);
+
+    connect(n_packet, SIGNAL(closeWindow()),
+            this, SLOT(on_closePacketWindow()));
+
+    n_packet -> setWindowTitle(QString::fromStdString(n_nodeName + " Data Packet Information"));
+
+    n_packet -> show();
 }
 
 void Node::on_closeRouteWindow(){
@@ -55,4 +64,9 @@ void Node::on_closeRouteWindow(){
 void Node::on_closeCSWindow(){
     delete n_cs;
     this -> ui -> requestCS -> setEnabled(true);
+}
+
+void Node::on_closePacketWindow(){
+    delete n_packet;
+    this -> ui -> requestCapture -> setEnabled(true);
 }

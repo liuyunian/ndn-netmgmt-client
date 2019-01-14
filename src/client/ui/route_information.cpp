@@ -32,14 +32,13 @@ RouteInformation::RouteInformation(std::string & prefix, QWidget *parent) :
     /**
      * 创建请求路由信息的线程
     */
-    std::string command("route");
-    r_requestRoute = new RequestThread(r_prefix, command);
+    r_request = new RequestThread(r_prefix);
 
-    connect(r_requestRoute, SIGNAL(displayRouteInfor(QString)),
+    connect(r_request, SIGNAL(displayRouteInfor(QString)),
             this, SLOT(on_displayRouteInfor(QString)),
             Qt::QueuedConnection);
 
-    std::thread requestRouteThread(&RequestThread::startRequest, r_requestRoute);
+    std::thread requestRouteThread(&RequestThread::requestRouteInformation, r_request);
     requestRouteThread.detach();
 }
 
@@ -48,7 +47,7 @@ RouteInformation::~RouteInformation()
     delete ui;
     delete r_FIBModel;
     delete r_RIBModel;
-    delete r_requestRoute;
+    delete r_request;
 }
 
 void RouteInformation::closeEvent(QCloseEvent * event)

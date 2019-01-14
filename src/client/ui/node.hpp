@@ -5,6 +5,7 @@
 
 #include "route_information.hpp"
 #include "cs_information.hpp"
+#include "packet_information.hpp"
 
 namespace Ui {
 class Node;
@@ -36,6 +37,8 @@ private slots:
 
     void on_closeCSWindow();
 
+    void on_closePacketWindow();
+
 private:
     Ui::Node *ui;
     std::string n_nodeName;
@@ -43,6 +46,7 @@ private:
 
     RouteInformation * n_route; //路由信息窗口
     CSInformation * n_cs; //缓存信息窗口
+    PacketInformation * n_packet; //数据包信息窗口
 };
 
 #endif // NODE_HPP

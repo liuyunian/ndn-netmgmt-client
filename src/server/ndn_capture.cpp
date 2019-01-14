@@ -1,10 +1,6 @@
-#include "ndn_capture.hpp"
-
 #include <arpa/inet.h>
 #include <net/ethernet.h>
-
 #include <pcap/sll.h>
-
 #include <iomanip>
 #include <sstream>
 
@@ -15,54 +11,15 @@
 
 #include <boost/endian/conversion.hpp>
 
-class OutputFormatter
-{
-  public:
-    OutputFormatter(std::ostream &os, std::string d)
-        : m_os(os), m_delim(std::move(d))
-    {
-    }
+#include "ndn_capture.hpp"
 
-    OutputFormatter(const OutputFormatter & capture) = delete; //不可拷贝复制
-    OutputFormatter & operator = (const OutputFormatter &) = delete; //不可等号复制
-
-    OutputFormatter & addDelimiter()
-    {
-        if (!m_isEmpty)
-        {
-            m_wantDelim = true;
-        }
-        return *this;
-    }
-
-  private:
-    std::ostream &m_os;
-    std::string m_delim;
-    bool m_isEmpty = true;
-    bool m_wantDelim = false;
-
-    template <typename T>
-    friend OutputFormatter &operator<<(OutputFormatter &, const T &);
-};
-
-template <typename T> OutputFormatter & operator<<(OutputFormatter &out, const T &val) //重载<<运算符
-{
-    if (out.m_wantDelim)
-    {
-        out.m_os << out.m_delim;
-        out.m_wantDelim = false;
-    }
-    out.m_os << val;
-    out.m_isEmpty = false;
-    return out;
-}
-
-NdnCapture::NdnCapture():
+NdnCapture::NdnCapture(std::shared_ptr<std::list<std::string>> packetListPtr, std::shared_ptr<std::mutex> mutex):
     pcapFilter("(ether proto 0x8624)"),
     wantPromisc(true),
-    wantTimestamp(true),
     m_pcap(nullptr),
-    m_dataLinkType(-1)
+    m_dataLinkType(-1),
+    m_packetListPtr(packetListPtr),
+    m_mutex(mutex)
 {}
 
 NdnCapture::~NdnCapture()
@@ -86,15 +43,12 @@ void NdnCapture::run()
     }
 
     std::string action;
-    if (!interface.empty())
+    m_pcap = pcap_open_live(interface.data(), 65535, wantPromisc, 1000, errbuf);
+    if (m_pcap == nullptr)
     {
-        m_pcap = pcap_open_live(interface.data(), 65535, wantPromisc, 1000, errbuf);
-        if (m_pcap == nullptr)
-        {
-            std::cerr << "Cannot open interface " << interface << ": " << errbuf << std::endl;
-        }
-        action = "listening on " + interface;
+        std::cerr << "Cannot open interface " << interface << ": " << errbuf << std::endl;
     }
+    action = "listening on " + interface;
 
     m_dataLinkType = pcap_datalink(m_pcap);
     const char *dltName = pcap_datalink_val_to_name(m_dataLinkType);
@@ -105,22 +59,10 @@ void NdnCapture::run()
         formattedDlt += "(" + std::string(dltDesc) + ")";
     }
 
-    std::cerr << "ndndump: " << action << ", link-type " << formattedDlt << std::endl;
-
-    switch (m_dataLinkType)
-    {
-    case DLT_EN10MB:
-    case DLT_LINUX_SLL:
-    case DLT_PPP:
-        // we know how to handle these
-        break;
-    default:
-        std::cerr << "Unsupported link-layer header type " << formattedDlt << std::endl;
-    }
+    std::cout << "ndndump: " << action << ", link-type " << formattedDlt << std::endl;
 
     if (!pcapFilter.empty())
     {
-
         bpf_program program;
         int res = pcap_compile(m_pcap, &program, pcapFilter.data(), 1, PCAP_NETMASK_UNKNOWN);
         if (res < 0)
@@ -166,79 +108,66 @@ void NdnCapture::printPacket(const pcap_pkthdr *pkthdr, const uint8_t *payload) 
         return;
     }
 
-    std::ostringstream os;
-    OutputFormatter out(os, ", ");
+    std::string packetInformation;
+    packetInformation.append(std::to_string(pkthdr->ts.tv_sec) + "." + std::to_string(pkthdr->ts.tv_usec) + ", ");
 
     bool shouldPrint = false;
     switch (m_dataLinkType)
     {
-    case DLT_EN10MB:
-        shouldPrint = printEther(out, payload, pkthdr->len);
-        break;
-    default:
-        BOOST_ASSERT(false);
-        return;
+        case DLT_EN10MB:
+            shouldPrint = printEther(payload, pkthdr->len, packetInformation);
+            break;
+        default:
+            BOOST_ASSERT(false);
+            return;
     }
 
     if (shouldPrint)
     {
-        if (wantTimestamp)
-        {
-            printTimestamp(std::cout, pkthdr->ts);
-        }
-        std::cout << os.str() << std::endl;
+        // std::cout << packetInformation << std::endl;
+        m_mutex->lock();
+        m_packetListPtr->push_back(packetInformation);
+        m_mutex->unlock();
     }
 }
 
-void NdnCapture::printTimestamp(std::ostream &os, const timeval &tv) const
+bool NdnCapture::dispatchByEtherType(const uint8_t *pkt, size_t len, uint16_t etherType, std::string & packetInformation) const
 {
-    /// \todo Add more timestamp formats (time since previous packet, time since first packet, ...)
-    os << tv.tv_sec
-       << "."
-       << std::setfill('0') << std::setw(6) << tv.tv_usec
-       << " ";
-}
-
-bool NdnCapture::dispatchByEtherType(OutputFormatter &out, const uint8_t *pkt, size_t len, uint16_t etherType) const
-{
-    out.addDelimiter();
-
     switch (etherType)
     {
     case ndn::ethernet::ETHERTYPE_NDN:
     case 0x7777: // NDN ethertype used in ndnSIM
-        out << "Ethernet";
-        return printNdn(out, pkt, len);
+        packetInformation.append("Ethernet, ");
+        return printNdn(pkt, len, packetInformation);
     default:
-        out << "[Unsupported ethertype " << ndn::AsHex{etherType} << "]";
-        return true;
+        std::cout << "[Unsupported ethertype " << ndn::AsHex{etherType} << "]" << std::endl;
+        return false;
     }
 }
 
-bool NdnCapture::printEther(OutputFormatter &out, const uint8_t *pkt, size_t len) const
+bool NdnCapture::printEther(const uint8_t *pkt, size_t len, std::string & packetInformation) const
 {
     // IEEE 802.3 Ethernet
 
     if (len < ndn::ethernet::HDR_LEN)
     {
-        out << "Truncated Ethernet frame, length " << len;
-        return true;
+        std::cout << "Truncated Ethernet frame, length " << len << std::endl;
+        return false;
     }
 
     auto ether = reinterpret_cast<const ether_header *>(pkt);
     pkt += ndn::ethernet::HDR_LEN;
     len -= ndn::ethernet::HDR_LEN;
 
-    return dispatchByEtherType(out, pkt, len, boost::endian::big_to_native(ether->ether_type));
+    return dispatchByEtherType(pkt, len, boost::endian::big_to_native(ether->ether_type), packetInformation);
 }
 
-bool NdnCapture::printNdn(OutputFormatter &out, const uint8_t *pkt, size_t len) const
+bool NdnCapture::printNdn(const uint8_t *pkt, size_t len, std::string & packetInformation) const
 {
     if (len == 0)
     {
         return false;
     }
-    out.addDelimiter();
 
     bool isOk = false;
     ndn::Block block;
@@ -246,8 +175,8 @@ bool NdnCapture::printNdn(OutputFormatter &out, const uint8_t *pkt, size_t len) 
     if (!isOk)
     {
         // if packet is incomplete, we will not be able to process it
-        out << "NDN truncated packet, length " << len;
-        return true;
+        std::cout << "NDN truncated packet, length " << len << std::endl;
+        return false;
     }
 
     ndn::lp::Packet lpPacket;
@@ -255,15 +184,14 @@ bool NdnCapture::printNdn(OutputFormatter &out, const uint8_t *pkt, size_t len) 
 
     if (block.type() == ndn::lp::tlv::LpPacket)
     {
-        out << "NDNLPv2";
         try
         {
             lpPacket.wireDecode(block);
         }
         catch (const ndn::tlv::Error &e)
         {
-            out << " invalid packet: " << e.what();
-            return true;
+            std::cout << " invalid packet: " << e.what() << std::endl;
+            return false;
         }
 
         ndn::Buffer::const_iterator begin, end;
@@ -273,8 +201,8 @@ bool NdnCapture::printNdn(OutputFormatter &out, const uint8_t *pkt, size_t len) 
         }
         else
         {
-            out << " idle";
-            return true;
+            std::cout << " idle" << std::endl;
+            return false;
         }
 
         bool isOk = false;
@@ -282,54 +210,55 @@ bool NdnCapture::printNdn(OutputFormatter &out, const uint8_t *pkt, size_t len) 
         if (!isOk)
         {
             // if network packet is fragmented, we will not be able to process it
-            out << " fragment";
-            return true;
+            std::cout << " fragment" << std::endl;
+            return false;
         }
     }
     else
     {
         netPacket = std::move(block);
     }
-    out.addDelimiter();
 
     try
     {
         switch (netPacket.type())
         {
-        case ndn::tlv::Interest:
-        {
-            ndn::Interest interest(netPacket);
-
-            if (lpPacket.has<ndn::lp::NackField>())
+            case ndn::tlv::Interest:
             {
-                ndn::lp::Nack nack(interest);
-                nack.setHeader(lpPacket.get<ndn::lp::NackField>());
-                out << "NACK (" << nack.getReason() << "): " << interest;
-            }
-            else
-            {
-                out << "INTEREST: " << interest;
-            }
-            break;
-        }
-        case ndn::tlv::Data:
-        {
-            ndn::Data data(netPacket);
+                ndn::Interest interest(netPacket);
 
-            out << "DATA: " << data.getName();
-            break;
-        }
-        default:
-        {
-            out << "[Unsupported NDN packet type " << netPacket.type() << "]";
-            break;
-        }
+                if (lpPacket.has<ndn::lp::NackField>())
+                {
+                    ndn::lp::Nack nack(interest);
+                    nack.setHeader(lpPacket.get<ndn::lp::NackField>());
+                    packetInformation.append("NACK: " + interest.getName().toUri());
+                }
+                else
+                {
+                    packetInformation.append("INTEREST: " + interest.getName().toUri());
+                }
+                return true;
+                break;
+            }
+            case ndn::tlv::Data:
+            {
+                ndn::Data data(netPacket);
+
+                packetInformation.append("DATA: " + data.getName().toUri());\
+                return true;
+                break;
+                
+            }
+            default:
+            {
+                std::cout << "[Unsupported NDN packet type " << netPacket.type() << "]" << std::endl;
+                return false;
+                break;
+            }
         }
     }
     catch (const ndn::tlv::Error &e)
     {
-        out << "invalid network packet: " << e.what();
+        std::cout << "invalid network packet: " << e.what() << std::endl;
     }
-
-    return true;
 }

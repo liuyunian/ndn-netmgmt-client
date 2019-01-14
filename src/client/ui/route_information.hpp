@@ -41,7 +41,7 @@ private:
     QStandardItemModel * r_FIBModel;
     QStandardItemModel * r_RIBModel;
 
-    RequestThread * r_requestRoute;
+    RequestThread * r_request;
     std::string r_prefix;
 };
 
