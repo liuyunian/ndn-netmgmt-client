@@ -1,12 +1,7 @@
 #include <iostream>
 #include <boost/program_options.hpp>
-#include <boost/asio.hpp>
 
-#include <ndn-cxx/name.hpp>
-#include <ndn-cxx/face.hpp>
-#include <ndn-cxx/util/io.hpp>
-
-#include "ndn_server.hpp"
+#include "ndn_server.h"
 
 void usage(const boost::program_options::options_description &options){
     std::cout << "Usage: sudo build/server [options] <prefix> \n";
@@ -15,7 +10,7 @@ void usage(const boost::program_options::options_description &options){
 }
 
 int main(int argc, char* argv[]){
-    Server server;
+    std::string prefix("/localhost");
 
     namespace po = boost::program_options;
     
@@ -31,10 +26,13 @@ int main(int argc, char* argv[]){
     }
     
     if(optVm.count("prefix")){
-        server.setPrefix(optVm["prefix"].as<std::string>());
+        prefix = optVm["prefix"].as<std::string>();
     }
     
+    Server server(prefix.append("/ndnmgmt"));
     server.run();
-    
+    // Capture cap;
+    // cap.run();
+
     return 0;
 }

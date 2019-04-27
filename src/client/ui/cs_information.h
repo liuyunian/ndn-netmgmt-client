@@ -1,11 +1,12 @@
-#ifndef CS_INFORMATION_HPP
-#define CS_INFORMATION_HPP
+#ifndef CS_INFORMATION_H
+#define CS_INFORMATION_H
 
 #include <QDialog>
 #include <QStandardItemModel>
 #include <QCloseEvent>
+#include <memory>
 
-#include "request_thread.hpp"
+#include "ndn_client.h"
 
 namespace Ui {
 class CSInformation;
@@ -18,11 +19,6 @@ class CSInformation : public QDialog
 public:
     explicit CSInformation(std::string & prefix, QWidget *parent = 0);
     ~CSInformation();
-    /**
-     * @brief 解析参数xml字符串，并在表格中填充数据
-     * @param XML格式的CS缓存信息
-    */
-    void parseCSInfor(QString & CSInfor_xml);
 
 signals:
     void closeWindow();
@@ -35,10 +31,10 @@ protected:
 
 private:
     Ui::CSInformation *ui;
-    QStandardItemModel * c_CSModel;
+    QStandardItemModel * m_CSModel;
 
-    RequestThread * c_request;
-    std::string c_prefix;
+    std::string m_prefix;
+    std::unique_ptr<Client> m_client;
 };
 
-#endif // CS_INFORMATION_HPP
+#endif // CS_INFORMATION_H

@@ -1,31 +1,32 @@
-#ifndef REQUEST_THREAD_H_
-#define REQUEST_THREAD_H_
+#ifndef NDN_CLIENT_H_
+#define NDN_CLIENT_H_
 #include <iostream>
 #include <ndn-cxx/face.hpp>
 #include <ndn-cxx/util/scheduler.hpp>
 #include <QObject>
 #include <QString>
 
-/**
- * RequestThread请求子线程
- * 继承QObject的目的:在主线程和请求子线程之间通信用到了qt信号与槽机制
-*/
-class RequestThread : public QObject{
-    Q_OBJECT //如果要用信号与槽机制必须要加这句话
+#include "threadpool.h"
+
+class Client : public QObject{
+    Q_OBJECT
 
 public:
-    RequestThread(std::string & prefix);
+    Client(const std::string & prefix);
+
+    ~Client(){}
+
     void requestRouteInformation();
+
     void requestCSInformation();
+
     void requestCaptureInformation();
 
 signals:
     void displayRouteInfor(QString);
+
     void displayCSInfor(QString);
     void displayPacketInfor(QString);
-
-    void startCaptureSuccessfully();
-    void finishCapture();
 
 public slots: 
     void on_stopCapture();
@@ -46,14 +47,16 @@ private:
     void sendInterest(ndn::Name & interestName);
     
     void onData(const ndn::Data &data);
-    void onNack();
-    void onTimeOut();
+    void onNack(const ndn::Interest & interest);
+    void onTimeOut(const ndn::Interest & interest);
 
 private:
-    ndn::Face r_face;
-    ndn::util::scheduler::Scheduler r_scheduler;
-    ndn::util::scheduler::EventId r_eventId;
-    std::string r_prefix;
+    ndn::Face m_face;
+    ndn::util::scheduler::Scheduler m_scheduler;
+    ndn::util::scheduler::EventId m_eventId;
+
+    std::string m_prefix;
+    ThreadPool * m_pool;
 };
 
-#endif
+#endif // NDN_CLIENT_H_

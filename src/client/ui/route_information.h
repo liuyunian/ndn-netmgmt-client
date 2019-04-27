@@ -1,13 +1,14 @@
-#ifndef ROUTE_INFORMATION_HPP
-#define ROUTE_INFORMATION_HPP
+#ifndef ROUTE_INFORMATION_H
+#define ROUTE_INFORMATION_H
 
 #include <QDialog>
 #include <QStandardItemModel>
 #include <QCloseEvent>
 
 #include <iostream>
+#include <memory>
 
-#include "request_thread.hpp"
+#include "ndn_client.h"
 
 namespace Ui {
 class RouteInformation;
@@ -21,12 +22,6 @@ public:
     explicit RouteInformation(std::string & prefix, QWidget *parent = 0);
     ~RouteInformation();
 
-    /**
-     * @brief 解析参数xml字符串，并在表格中填充数据
-     * @param XML格式的路由信息
-    */
-    void parseRouteInfor(QString & routeInfor_xml);
-
 protected: 
     void closeEvent(QCloseEvent * event);
 
@@ -38,11 +33,11 @@ private slots:
 
 private:
     Ui::RouteInformation *ui;
-    QStandardItemModel * r_FIBModel;
-    QStandardItemModel * r_RIBModel;
+    QStandardItemModel * m_FIBModel;
+    QStandardItemModel * m_RIBModel;
 
-    RequestThread * r_request;
-    std::string r_prefix;
+    std::string m_prefix;
+    std::unique_ptr<Client> m_client;
 };
 
-#endif // ROUTE_INFORMATION_HPP
+#endif // ROUTE_INFORMATION_H

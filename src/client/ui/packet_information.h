@@ -1,13 +1,12 @@
-#ifndef PACKET_INFORMATION_HPP
-#define PACKET_INFORMATION_HPP
+#ifndef PACKET_INFORMATION_H
+#define PACKET_INFORMATION_H
 
 #include <QDialog>
 #include <QCloseEvent>
 
 #include <iostream>
-#include <thread>
-
-#include "request_thread.hpp"
+#include <memory>
+#include "ndn_client.h"
 
 namespace Ui {
 class PacketInformation;
@@ -30,21 +29,15 @@ signals:
     void stopCapture();
 
 private slots:
-    void on_startCapture_clicked(); //点击开始捕获的槽函数
-
     void on_stopCapture_clicked(); //点击停止捕获的槽函数
 
-    void on_startCaptureSuccessfully();
-
-    void on_finishCapture();
-
-    void on_displayCSInfor(QString);
+    void on_displayPacketInfor(QString);
 
 private:
     Ui::PacketInformation *ui;
 
-    RequestThread * p_request;
-    std::string p_prefix;
+    std::string m_prefix;
+    std::unique_ptr<Client> m_client;
 };
 
-#endif // PACKET_INFORMATION_HPP
+#endif // PACKET_INFORMATION_H

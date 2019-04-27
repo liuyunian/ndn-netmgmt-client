@@ -1,4 +1,4 @@
-# project  configured on Tue Jan  8 13:12:07 2019 by
+# project  configured on Tue Apr 16 11:29:20 2019 by
 # waf 2.0.12 (abi 20, python 2070fc1 on linux2)
 # using ./waf configure
 #
@@ -805,25 +805,47 @@ Checking for pkg-config version >= '0.1'
 ['/usr/bin/pkg-config', '--atleast-pkgconfig-version=0.1']
 yes
 ----------------------------------------
-Checking for 'Qt5Concurrent'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Concurrent']
-out: -I/usr/include/x86_64-linux-gnu/qt5/QtConcurrent -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Concurrent -lQt5Core
-
-yes
-----------------------------------------
-Checking for 'Qt5Svg'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Svg']
-err: Package Qt5Svg was not found in the pkg-config search path.
-Perhaps you should add the directory containing `Qt5Svg.pc'
+Checking for 'Qt5EglFsKmsSupport'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5EglFsKmsSupport']
+err: Package Qt5EglFsKmsSupport was not found in the pkg-config search path.
+Perhaps you should add the directory containing `Qt5EglFsKmsSupport.pc'
 to the PKG_CONFIG_PATH environment variable
-No package 'Qt5Svg' found
+No package 'Qt5EglFsKmsSupport' found
 
 not found
 from /home/lyn/文档/ndn-netmgmt: The configuration failed
 ----------------------------------------
-Checking for 'Qt5Sql'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Sql']
-out: -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Sql -lQt5Core
+Checking for 'Qt5EglFSDeviceIntegration'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5EglFSDeviceIntegration']
+err: Package Qt5EglFSDeviceIntegration was not found in the pkg-config search path.
+Perhaps you should add the directory containing `Qt5EglFSDeviceIntegration.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'Qt5EglFSDeviceIntegration' found
+
+not found
+from /home/lyn/文档/ndn-netmgmt: The configuration failed
+----------------------------------------
+Checking for 'Qt5Xml'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Xml']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtXml -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Xml -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5Widgets'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Widgets']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Widgets -lQt5Gui -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5Test'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Test']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtTest -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Test -lQt5Core
+
+yes
+----------------------------------------
+Checking for 'Qt5OpenGL'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5OpenGL']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5OpenGL -lQt5Widgets -lQt5Gui -lQt5Core
 
 yes
 ----------------------------------------
@@ -837,19 +859,9 @@ No package 'Qt5XcbQpa' found
 not found
 from /home/lyn/文档/ndn-netmgmt: The configuration failed
 ----------------------------------------
-Checking for 'Qt5Help'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Help']
-err: Package Qt5Help was not found in the pkg-config search path.
-Perhaps you should add the directory containing `Qt5Help.pc'
-to the PKG_CONFIG_PATH environment variable
-No package 'Qt5Help' found
-
-not found
-from /home/lyn/文档/ndn-netmgmt: The configuration failed
-----------------------------------------
-Checking for 'Qt5Core'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Core']
-out: -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Core
+Checking for 'Qt5DBus'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5DBus']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtDBus -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5DBus -lQt5Core
 
 yes
 ----------------------------------------
@@ -859,131 +871,15 @@ out: -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/q
 
 yes
 ----------------------------------------
-Checking for 'Qt5Test'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Test']
-out: -I/usr/include/x86_64-linux-gnu/qt5/QtTest -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Test -lQt5Core
-
-yes
-----------------------------------------
-Checking for 'Qt5OpenGL'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5OpenGL']
-out: -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5OpenGL -lQt5Widgets -lQt5Gui -lQt5Core
-
-yes
-----------------------------------------
-Checking for 'Qt5Xml'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Xml']
-out: -I/usr/include/x86_64-linux-gnu/qt5/QtXml -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Xml -lQt5Core
-
-yes
-----------------------------------------
-Checking for 'Qt5DBus'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5DBus']
-out: -I/usr/include/x86_64-linux-gnu/qt5/QtDBus -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5DBus -lQt5Core
-
-yes
-----------------------------------------
-Checking for 'Qt5CLucene'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5CLucene']
-err: Package Qt5CLucene was not found in the pkg-config search path.
-Perhaps you should add the directory containing `Qt5CLucene.pc'
-to the PKG_CONFIG_PATH environment variable
-No package 'Qt5CLucene' found
-
-not found
-from /home/lyn/文档/ndn-netmgmt: The configuration failed
-----------------------------------------
-Checking for 'Qt5Widgets'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Widgets']
-out: -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Widgets -lQt5Gui -lQt5Core
-
-yes
-----------------------------------------
-Checking for 'Qt5Designer'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Designer']
-err: Package Qt5Designer was not found in the pkg-config search path.
-Perhaps you should add the directory containing `Qt5Designer.pc'
-to the PKG_CONFIG_PATH environment variable
-No package 'Qt5Designer' found
-
-not found
-from /home/lyn/文档/ndn-netmgmt: The configuration failed
-----------------------------------------
-Checking for 'Qt5DBus'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5DBus']
-out: -I/usr/include/x86_64-linux-gnu/qt5/QtDBus -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5DBus -lQt5Core
-
-yes
-----------------------------------------
 Checking for 'Qt5PrintSupport'
 ['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5PrintSupport']
 out: -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5PrintSupport -lQt5Widgets -lQt5Gui -lQt5Core
 
 yes
 ----------------------------------------
-Checking for 'Qt5Network'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Network']
-out: -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Network -lQt5Core
-
-yes
-----------------------------------------
-Checking for 'Qt5Declarative'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Declarative']
-err: Package Qt5Declarative was not found in the pkg-config search path.
-Perhaps you should add the directory containing `Qt5Declarative.pc'
-to the PKG_CONFIG_PATH environment variable
-No package 'Qt5Declarative' found
-
-not found
-from /home/lyn/文档/ndn-netmgmt: The configuration failed
-----------------------------------------
-Checking for 'Qt5Test'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Test']
-out: -I/usr/include/x86_64-linux-gnu/qt5/QtTest -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Test -lQt5Core
-
-yes
-----------------------------------------
-Checking for 'Qt5Gui'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Gui']
-out: -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Gui -lQt5Core
-
-yes
-----------------------------------------
-Checking for 'Qt5EglFSDeviceIntegration'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5EglFSDeviceIntegration']
-err: Package Qt5EglFSDeviceIntegration was not found in the pkg-config search path.
-Perhaps you should add the directory containing `Qt5EglFSDeviceIntegration.pc'
-to the PKG_CONFIG_PATH environment variable
-No package 'Qt5EglFSDeviceIntegration' found
-
-not found
-from /home/lyn/文档/ndn-netmgmt: The configuration failed
-----------------------------------------
-Checking for 'Qt5OpenGL'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5OpenGL']
-out: -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5OpenGL -lQt5Widgets -lQt5Gui -lQt5Core
-
-yes
-----------------------------------------
-Checking for 'Qt5Network'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Network']
-out: -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Network -lQt5Core
-
-yes
-----------------------------------------
-Checking for 'Qt5EglFsKmsSupport'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5EglFsKmsSupport']
-err: Package Qt5EglFsKmsSupport was not found in the pkg-config search path.
-Perhaps you should add the directory containing `Qt5EglFsKmsSupport.pc'
-to the PKG_CONFIG_PATH environment variable
-No package 'Qt5EglFsKmsSupport' found
-
-not found
-from /home/lyn/文档/ndn-netmgmt: The configuration failed
-----------------------------------------
-Checking for 'Qt5Gui'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Gui']
-out: -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Gui -lQt5Core
+Checking for 'Qt5Concurrent'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Concurrent']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtConcurrent -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Concurrent -lQt5Core
 
 yes
 ----------------------------------------
@@ -993,59 +889,15 @@ out: -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/
 
 yes
 ----------------------------------------
-Checking for 'Qt53Support'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt53Support']
-err: Package Qt53Support was not found in the pkg-config search path.
-Perhaps you should add the directory containing `Qt53Support.pc'
-to the PKG_CONFIG_PATH environment variable
-No package 'Qt53Support' found
+Checking for 'Qt5Network'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Network']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Network -lQt5Core
 
-not found
-from /home/lyn/文档/ndn-netmgmt: The configuration failed
+yes
 ----------------------------------------
-Checking for 'Qt5ScriptTools'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5ScriptTools']
-err: Package Qt5ScriptTools was not found in the pkg-config search path.
-Perhaps you should add the directory containing `Qt5ScriptTools.pc'
-to the PKG_CONFIG_PATH environment variable
-No package 'Qt5ScriptTools' found
-
-not found
-from /home/lyn/文档/ndn-netmgmt: The configuration failed
-----------------------------------------
-Checking for 'Qt5Script'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Script']
-err: Package Qt5Script was not found in the pkg-config search path.
-Perhaps you should add the directory containing `Qt5Script.pc'
-to the PKG_CONFIG_PATH environment variable
-No package 'Qt5Script' found
-
-not found
-from /home/lyn/文档/ndn-netmgmt: The configuration failed
-----------------------------------------
-Checking for 'Qt5XmlPatterns'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5XmlPatterns']
-err: Package Qt5XmlPatterns was not found in the pkg-config search path.
-Perhaps you should add the directory containing `Qt5XmlPatterns.pc'
-to the PKG_CONFIG_PATH environment variable
-No package 'Qt5XmlPatterns' found
-
-not found
-from /home/lyn/文档/ndn-netmgmt: The configuration failed
-----------------------------------------
-Checking for 'Qt5DesignerComponents'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5DesignerComponents']
-err: Package Qt5DesignerComponents was not found in the pkg-config search path.
-Perhaps you should add the directory containing `Qt5DesignerComponents.pc'
-to the PKG_CONFIG_PATH environment variable
-No package 'Qt5DesignerComponents' found
-
-not found
-from /home/lyn/文档/ndn-netmgmt: The configuration failed
-----------------------------------------
-Checking for 'Qt5Xml'
-['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Xml']
-out: -I/usr/include/x86_64-linux-gnu/qt5/QtXml -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Xml -lQt5Core
+Checking for 'Qt5Gui'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'Qt5Gui']
+out: -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/x86_64-linux-gnu/qt5 -lQt5Gui -lQt5Core
 
 yes
 ----------------------------------------
@@ -1055,9 +907,9 @@ See if Qt files compile
 int main(int argc, char **argv) {return 0;}
 
 <==
-[1/1] Compiling [32mbuild/.conf_check_7e554b53a0a2945c33815b62ef21d1d7/test.cpp[0m
+[1/1] Compiling [32mbuild/.conf_check_f90bd35d41bedae2e771d179a0ebc7c3/test.cpp[0m
 
-['/usr/bin/g++', '-I/usr/include/x86_64-linux-gnu/qt5/QtCore', '-I/usr/include/x86_64-linux-gnu/qt5', '-I/usr/include/x86_64-linux-gnu/qt5/QtWidgets', '-I/usr/include/x86_64-linux-gnu/qt5/QtGui', '-DHAVE_QT5CONCURRENT=1', '-DHAVE_QT5SQL=1', '-DHAVE_QT5CORE=1', '-DHAVE_QT5TEST=1', '-DHAVE_QT5OPENGL=1', '-DHAVE_QT5XML=1', '-DHAVE_QT5DBUS=1', '-DHAVE_QT5WIDGETS=1', '-DHAVE_QT5PRINTSUPPORT=1', '-DHAVE_QT5NETWORK=1', '-DHAVE_QT5GUI=1', '../test.cpp', '-c', '-o/home/lyn/\xe6\x96\x87\xe6\xa1\xa3/ndn-netmgmt/build/.conf_check_7e554b53a0a2945c33815b62ef21d1d7/testbuild/test.cpp.1.o']
+['/usr/bin/g++', '-I/usr/include/x86_64-linux-gnu/qt5/QtCore', '-I/usr/include/x86_64-linux-gnu/qt5', '-I/usr/include/x86_64-linux-gnu/qt5/QtWidgets', '-I/usr/include/x86_64-linux-gnu/qt5/QtGui', '-DHAVE_QT5XML=1', '-DHAVE_QT5WIDGETS=1', '-DHAVE_QT5TEST=1', '-DHAVE_QT5OPENGL=1', '-DHAVE_QT5DBUS=1', '-DHAVE_QT5SQL=1', '-DHAVE_QT5PRINTSUPPORT=1', '-DHAVE_QT5CONCURRENT=1', '-DHAVE_QT5CORE=1', '-DHAVE_QT5NETWORK=1', '-DHAVE_QT5GUI=1', '../test.cpp', '-c', '-o/home/lyn/\xe6\x96\x87\xe6\xa1\xa3/ndn-netmgmt/build/.conf_check_f90bd35d41bedae2e771d179a0ebc7c3/testbuild/test.cpp.1.o']
 err: In file included from /usr/include/x86_64-linux-gnu/qt5/QtGui/qtguiglobal.h:43:0,
                  from /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h:43,
                  from /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h:43,
@@ -1084,9 +936,9 @@ See if Qt files compile with -fPIE
 int main(int argc, char **argv) {return 0;}
 
 <==
-[1/1] Compiling [32mbuild/.conf_check_abb2c3a0bf17a31670ed61968aa7cd6a/test.cpp[0m
+[1/1] Compiling [32mbuild/.conf_check_9ef6d39a027008e75d20bbfeda26a9e1/test.cpp[0m
 
-['/usr/bin/g++', '-fPIE', '-I/usr/include/x86_64-linux-gnu/qt5/QtCore', '-I/usr/include/x86_64-linux-gnu/qt5', '-I/usr/include/x86_64-linux-gnu/qt5/QtWidgets', '-I/usr/include/x86_64-linux-gnu/qt5/QtGui', '-DHAVE_QT5CONCURRENT=1', '-DHAVE_QT5SQL=1', '-DHAVE_QT5CORE=1', '-DHAVE_QT5TEST=1', '-DHAVE_QT5OPENGL=1', '-DHAVE_QT5XML=1', '-DHAVE_QT5DBUS=1', '-DHAVE_QT5WIDGETS=1', '-DHAVE_QT5PRINTSUPPORT=1', '-DHAVE_QT5NETWORK=1', '-DHAVE_QT5GUI=1', '../test.cpp', '-c', '-o/home/lyn/\xe6\x96\x87\xe6\xa1\xa3/ndn-netmgmt/build/.conf_check_abb2c3a0bf17a31670ed61968aa7cd6a/testbuild/test.cpp.1.o']
+['/usr/bin/g++', '-fPIE', '-I/usr/include/x86_64-linux-gnu/qt5/QtCore', '-I/usr/include/x86_64-linux-gnu/qt5', '-I/usr/include/x86_64-linux-gnu/qt5/QtWidgets', '-I/usr/include/x86_64-linux-gnu/qt5/QtGui', '-DHAVE_QT5XML=1', '-DHAVE_QT5WIDGETS=1', '-DHAVE_QT5TEST=1', '-DHAVE_QT5OPENGL=1', '-DHAVE_QT5DBUS=1', '-DHAVE_QT5SQL=1', '-DHAVE_QT5PRINTSUPPORT=1', '-DHAVE_QT5CONCURRENT=1', '-DHAVE_QT5CORE=1', '-DHAVE_QT5NETWORK=1', '-DHAVE_QT5GUI=1', '../test.cpp', '-c', '-o/home/lyn/\xe6\x96\x87\xe6\xa1\xa3/ndn-netmgmt/build/.conf_check_9ef6d39a027008e75d20bbfeda26a9e1/testbuild/test.cpp.1.o']
 err: In file included from /usr/include/x86_64-linux-gnu/qt5/QtGui/qtguiglobal.h:43:0,
                  from /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h:43,
                  from /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h:43,
@@ -1113,14 +965,14 @@ See if Qt files compile with -fPIC
 int main(int argc, char **argv) {return 0;}
 
 <==
-[1/1] Compiling [32mbuild/.conf_check_e17be983975f58c55ffacf591a11ba86/test.cpp[0m
+[1/1] Compiling [32mbuild/.conf_check_03e59b1dee2dcd04ece3e9a15bdab105/test.cpp[0m
 
-['/usr/bin/g++', '-fPIC', '-I/usr/include/x86_64-linux-gnu/qt5/QtCore', '-I/usr/include/x86_64-linux-gnu/qt5', '-I/usr/include/x86_64-linux-gnu/qt5/QtWidgets', '-I/usr/include/x86_64-linux-gnu/qt5/QtGui', '-DHAVE_QT5CONCURRENT=1', '-DHAVE_QT5SQL=1', '-DHAVE_QT5CORE=1', '-DHAVE_QT5TEST=1', '-DHAVE_QT5OPENGL=1', '-DHAVE_QT5XML=1', '-DHAVE_QT5DBUS=1', '-DHAVE_QT5WIDGETS=1', '-DHAVE_QT5PRINTSUPPORT=1', '-DHAVE_QT5NETWORK=1', '-DHAVE_QT5GUI=1', '../test.cpp', '-c', '-o/home/lyn/\xe6\x96\x87\xe6\xa1\xa3/ndn-netmgmt/build/.conf_check_e17be983975f58c55ffacf591a11ba86/testbuild/test.cpp.1.o']
+['/usr/bin/g++', '-fPIC', '-I/usr/include/x86_64-linux-gnu/qt5/QtCore', '-I/usr/include/x86_64-linux-gnu/qt5', '-I/usr/include/x86_64-linux-gnu/qt5/QtWidgets', '-I/usr/include/x86_64-linux-gnu/qt5/QtGui', '-DHAVE_QT5XML=1', '-DHAVE_QT5WIDGETS=1', '-DHAVE_QT5TEST=1', '-DHAVE_QT5OPENGL=1', '-DHAVE_QT5DBUS=1', '-DHAVE_QT5SQL=1', '-DHAVE_QT5PRINTSUPPORT=1', '-DHAVE_QT5CONCURRENT=1', '-DHAVE_QT5CORE=1', '-DHAVE_QT5NETWORK=1', '-DHAVE_QT5GUI=1', '../test.cpp', '-c', '-o/home/lyn/\xe6\x96\x87\xe6\xa1\xa3/ndn-netmgmt/build/.conf_check_03e59b1dee2dcd04ece3e9a15bdab105/testbuild/test.cpp.1.o']
 yes
 ----------------------------------------
 Checking for 'libndn-cxx'
 ['/usr/bin/pkg-config', '--cflags', '--libs', 'libndn-cxx']
-out: -pthread -I/usr/local/include -L/usr/local/lib -pthread -lndn-cxx -lboost_system -lboost_filesystem -lboost_date_time -lboost_iostreams -lboost_program_options -lboost_chrono -lboost_thread -lboost_log -lboost_log_setup -lssl -lcrypto -lsqlite3 -lrt -lpthread
+out: -pthread -DBOOST_STACKTRACE_DYN_LINK -DBOOST_LOG_DYN_LINK -I/usr/local/include -L/usr/local/lib -pthread -lndn-cxx -lboost_system -lboost_program_options -lboost_chrono -lboost_date_time -lboost_filesystem -lboost_thread -lboost_log -lboost_stacktrace_backtrace -lcrypto -lsqlite3 -lrt -lpthread
 
 yes
 ----------------------------------------

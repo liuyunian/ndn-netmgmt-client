@@ -1,75 +1,68 @@
-#include "packet_information.hpp"
+#include "packet_information.h"
 #include "ui_packet_information.h"
 #include <src/client/ui/packet_information.moc>
+
+#include <QMessageBox>
+#include <QCloseEvent>
 
 PacketInformation::PacketInformation(std::string & prefix, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::PacketInformation),
-    p_prefix(prefix)
-{
+    m_prefix(prefix){
     ui->setupUi(this);
 
-    ui -> displayStatus -> setDisabled(true);
-    ui -> displayStatus -> setStyleSheet("QRadioButton::indicator {width: 20px; height: 20px; border-radius: 10px}"
+    ui->stopCapture->setDisabled(true);
+    ui->displayStatus->setChecked(false);
+    ui->displayStatus->setStyleSheet("QRadioButton::indicator {width: 20px; height: 20px; border-radius: 10px}"
                                         "QRadioButton::indicator:checked {background-color: #00FF00;}"
                                         "QRadioButton::indicator:unchecked {background-color: red;}");
-}
 
-PacketInformation::~PacketInformation()
-{
-    delete ui;
-}
-
-void PacketInformation::closeEvent(QCloseEvent * event)
-{
-    emit closeWindow();
-}
-
-// private slots
-void PacketInformation::on_startCapture_clicked()
-{
-    /**
-     * 创建请求抓取数据包信息的线程
-    */
-    p_request = new RequestThread(p_prefix);
-
-    connect(p_request, SIGNAL(startCaptureSuccessfully()),
-            this, SLOT(on_startCaptureSuccessfully()),
-            Qt::QueuedConnection);
-
-    connect(p_request, SIGNAL(finishCapture()),
-            this, SLOT(on_finishCapture()),
-            Qt::QueuedConnection);
-
-    connect(p_request, SIGNAL(displayPacketInfor(QString)),
-            this, SLOT(on_displayCSInfor(QString)),
+    m_client = std::make_unique<Client>(m_prefix);
+    
+    connect(m_client.get(), SIGNAL(displayPacketInfor(QString)), 
+            this, SLOT(on_displayPacketInfor(QString)), 
             Qt::QueuedConnection);
 
     connect(this, SIGNAL(stopCapture()),
-            p_request, SLOT(on_stopCapture()),
+            m_client.get(), SLOT(on_stopCapture()),
             Qt::QueuedConnection);
 
-    std::thread requestCaptureThread(&RequestThread::requestCaptureInformation, p_request);
-    requestCaptureThread.detach();
+    m_client->requestCaptureInformation();
+
+    ui->displayStatus->setChecked(true);
+    ui->stopCapture->setEnabled(true);
 }
 
-void PacketInformation::on_stopCapture_clicked()
-{
+PacketInformation::~PacketInformation(){
+    delete ui;
+}
+
+void PacketInformation::closeEvent(QCloseEvent * event){
+    if(ui->displayStatus->isChecked()){
+        QMessageBox::warning(NULL, "warning", "please stop capture");
+        event->ignore();
+    }
+    else{
+        event->accept();
+        emit closeWindow();
+    }   
+}
+
+// private slots
+void PacketInformation::on_stopCapture_clicked(){
     emit stopCapture();
+    ui->displayStatus->setChecked(false);
+    ui->stopCapture->setDisabled(true);
 }
 
-void PacketInformation::on_startCaptureSuccessfully(){
-    ui -> displayStatus -> setChecked(true);
-    ui -> startCapture -> setDisabled(true);
+void PacketInformation::on_displayPacketInfor(QString pktInfor){
+    QStringList pktInforList = pktInfor.split('\n');
+    for(int i = 0; i < pktInforList.size()-1; ++i){
+        if(pktInforList[i].at(0) == 'S'){
+            ui->sendPacket->append(pktInforList[i]);
+        }
+        else{
+            ui->reveivePacket->append(pktInforList[i]);
+        }
+    }
 }
-
-void PacketInformation::on_finishCapture(){
-    delete p_request;
-    ui -> displayStatus -> setChecked(false);
-    ui -> startCapture -> setEnabled(true);
-}
-
-void PacketInformation::on_displayCSInfor(QString packetInfor){
-    ui -> sendPacket -> append(packetInfor);
-}
-

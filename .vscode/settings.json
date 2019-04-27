@@ -58,6 +58,11 @@
         "algorithm": "cpp",
         "*.ipp": "cpp",
         "*.moc": "cpp",
-        "qobject": "cpp"
+        "qobject": "cpp",
+        "any": "cpp",
+        "variant": "cpp",
+        "numeric": "cpp",
+        "qmenu": "cpp",
+        "qpainter": "cpp"
     }
 }

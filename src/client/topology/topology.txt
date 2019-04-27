@@ -1,0 +1,6 @@
+5
+Node0 /ndn 350 100
+Node1 /prefix 150 250
+Node2 /prefix 550 250
+Node3 /prefix 250 450
+Node3 /prefix 450 450
