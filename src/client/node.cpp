@@ -2,64 +2,65 @@
 #include <src/client/node.moc>
 #include <iostream>
 
+#include "ndn_client.h"
+
 #define R 80
 
-Node::Node(std::string & name, std::string & prefix, uint16_t x, uint16_t y) : 
+Node::Node(std::string & name, std::string & prefix, std::shared_ptr<QPoint> & center, std::shared_ptr<std::vector<std::string>> & neighbors) : 
     m_name(name),
     m_prefix(prefix),
-    m_route(nullptr),
-    m_cs(nullptr),
-    m_packet(nullptr),
-    m_lPoint(new Point(x, y)),
-    m_rPoint(new Point(x+R, y+R)){}
-
-void Node::onShowRouteInfor(){
-    if(m_route == nullptr){
-        m_route = std::make_unique<RouteInformation>(m_prefix);
-
-        connect(m_route.get(), SIGNAL(closeWindow()),
-                this, SLOT(on_closeRouteWindow()));
-
-        m_route->setWindowTitle(QString::fromStdString(m_name + " Route Information"));
-        m_route->show();
+    m_center(center),
+    m_neighbors(neighbors),
+    m_status(nullptr),
+    m_traffic(nullptr),
+    m_client(nullptr){
+        // for(auto &item : (*m_neighbors)){
+        //     std::cout << item << std::endl;
+        // }
     }
 
-}
+void Node::onShowStatusInfor(){
+    if(m_status == nullptr){
+        m_status = std::make_unique<StatusInfor>(m_name, m_prefix);
 
-void Node::onShowCSInfor(){
-    if(m_cs == nullptr){
-        m_cs = std::make_unique<CSInformation>(m_prefix);
+        connect(m_status.get(), SIGNAL(closeWindow()),
+                this, SLOT(on_closeStatusWindow()));
 
-        connect(m_cs.get(), SIGNAL(closeWindow()),
-                this, SLOT(on_closeCSWindow()));
-                
-        m_cs -> setWindowTitle(QString::fromStdString(m_name + " CS Information"));
-        m_cs -> show();
+        m_status->setWindowTitle(QString::fromStdString(m_name + " Status Information"));
+        m_status->show();
     }
-
 }
 
-void Node::onShowPacketInfor(){
-    if(m_packet == nullptr){
-        m_packet = std::make_unique<PacketInformation>(m_prefix);
+void Node::onShowTrafficInfor(){
+    if(m_traffic == nullptr){
+        m_traffic = std::make_unique<TrafficInfor>(m_prefix);
 
-        connect(m_packet.get(), SIGNAL(closeWindow()),
-                this, SLOT(on_closePacketWindow()));
+        connect(m_traffic.get(), SIGNAL(closeWindow()),
+                this, SLOT(on_closeTrafficWindow()));
 
-        m_packet -> setWindowTitle(QString::fromStdString(m_name + " Data Packet Information"));
-        m_packet -> show();
+        m_traffic -> setWindowTitle(QString::fromStdString(m_name + " Traffic Information"));
+        m_traffic -> show();
     }
-
 }
 
-void Node::on_closeRouteWindow(){
-    m_route = nullptr;
+void Node::on_closeStatusWindow(){
+    m_status = nullptr;
 }
 
-void Node::on_closeCSWindow(){
-    m_cs = nullptr;
+void Node::on_closeTrafficWindow(){
+    m_traffic = nullptr;
+
+    if(m_client == nullptr){
+        m_client = std::make_unique<Client>(m_prefix);
+    }
+    m_client->stopRequestTrafficInfor();
 }
 
-void Node::on_closePacketWindow(){
-    m_packet = nullptr;
+bool Node::isAllClosed(){
+    if(m_status == nullptr && m_traffic == nullptr){
+        return true;
+    }
+    else{
+        return false;
+    }
 }

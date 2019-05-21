@@ -4,28 +4,16 @@
 #include <memory>
 #include <QObject>
 #include <QMenu>
+#include <QPoint>
 
-#include "route_information.h"
-#include "cs_information.h"
-#include "packet_information.h"
+#include "traffic_infor.h"
+#include "status_infor.h"
 
 class Node : public QObject{
     Q_OBJECT //如果要用信号与槽机制必须要加这句话
 
-private:
-    struct Point{
-        uint16_t m_x;
-        uint16_t m_y;
-
-        Point(uint16_t x, uint16_t y) : m_x(x), m_y(y){}
-
-        inline u_int16_t getX(){return m_x;}
-
-        inline u_int16_t getY(){return m_y;}
-    };
-
 public:
-    Node(std::string & name, std::string & prefix, uint16_t x, uint16_t y);
+    Node(std::string & name, std::string & prefix, std::shared_ptr<QPoint> & center, std::shared_ptr<std::vector<std::string>> & neighbors);
 
     Node(const Node &) = delete;
     Node & operator=(const Node &) = delete;
@@ -34,38 +22,32 @@ public:
 
     inline std::string getNodePrefix(){return m_prefix;}
 
-    inline auto getLeftPoint(){
-        return m_lPoint;
-    } 
+    inline int getCenter_x(){return m_center->x();} 
 
-    inline auto getRightPoint(){
-        return m_rPoint;
-    }
+    inline int getCenter_y(){return m_center->y();}
 
 public slots:
-    void onShowRouteInfor();
+    void onShowStatusInfor();
 
-    void onShowCSInfor();
+    void onShowTrafficInfor();
 
-    void onShowPacketInfor();
+    void on_closeStatusWindow();
 
-    void on_closeRouteWindow();
+    void on_closeTrafficWindow();
 
-    void on_closeCSWindow();
-
-    void on_closePacketWindow();
+    bool isAllClosed();
 
 private:
     std::string m_name;
     std::string m_prefix;
+    std::shared_ptr<QPoint> m_center;
 
-    std::unique_ptr<RouteInformation> m_route; //路由信息窗口
-    std::unique_ptr<CSInformation> m_cs; //缓存信息窗口
-    std::unique_ptr<PacketInformation> m_packet; //数据包信息窗口
+    std::unique_ptr<Client> m_client;
+    std::unique_ptr<StatusInfor> m_status;
+    std::unique_ptr<TrafficInfor> m_traffic; //数据包信息窗口
 
 public:
-    std::shared_ptr<Point> m_lPoint;
-    std::shared_ptr<Point> m_rPoint;
+    std::shared_ptr<std::vector<std::string>> m_neighbors;
 };
 
 #endif // NODE_H

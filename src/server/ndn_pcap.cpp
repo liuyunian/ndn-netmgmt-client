@@ -12,37 +12,29 @@
 
 #include "ndn_pacp.h"
 
-Capture::Capture(std::shared_ptr<std::queue<std::string>> & pktQue, std::shared_ptr<std::mutex> & mutex) : 
-    m_interface(nullptr),
-    m_pktInfor(""),
-    m_pktQue(pktQue),
-    m_mutex(mutex){}
+Capture::Capture(std::string & interface) : 
+    m_interface(interface),
+    m_pktInfor("")
+{
+    getMacAddr(); //获取dev对应的Mac地址
+}
 
 Capture::~Capture(){
-    if (m_pcap){
+    if(m_pcap){
         pcap_close(m_pcap); 
     }
 }
 
 void Capture::run(){
+    // 打开设备
     char errbuf[PCAP_ERRBUF_SIZE]; 
-
-    pcap_if_t * alldevs;
-    int status = pcap_findalldevs(&alldevs,errbuf);
-    if(status == -1){
-        std::cerr << errbuf << std::endl;
-    }
-    m_interface = alldevs->name; // 默认取第一个dev
-    getMacAddr(); //获取dev对应的Mac地址
-
-    m_pcap = pcap_open_live(m_interface, 65535, true, 1000, errbuf);
+    m_pcap = pcap_open_live(m_interface.c_str(), 65535, true, 1000, errbuf);
     if(m_pcap == nullptr){
         std::cerr << "Cannot open interface " << m_interface << ": " << errbuf << std::endl;
     }
 
     std::string action;
     action = "listening on " + std::string(m_interface);
-
     m_dataLinkType = pcap_datalink(m_pcap);
     const char *dltName = pcap_datalink_val_to_name(m_dataLinkType);
     const char *dltDesc = pcap_datalink_val_to_description(m_dataLinkType);
@@ -54,7 +46,7 @@ void Capture::run(){
 
     // 编译过滤器
     bpf_program program;
-    status = pcap_compile(m_pcap, &program, "(ether proto 0x8624)", 1, PCAP_NETMASK_UNKNOWN);
+    int status = pcap_compile(m_pcap, &program, "(ether proto 0x8624)", 1, PCAP_NETMASK_UNKNOWN);
     if(status < 0){
         std::cerr << "Cannot compile pcap filter (ether proto 0x8624): " << pcap_geterr(m_pcap) << std::endl;
     }
@@ -78,6 +70,11 @@ void Capture::run(){
     }
 }
 
+void Capture::stop(){
+    pcap_breakloop(m_pcap);
+    std::cout << "stop to listen on" << m_interface << std::endl;
+}
+
 void Capture::handlePacket(const pcap_pkthdr *pkthdr, const uint8_t *payload) const{
     if (pkthdr->caplen == 0){ //捕获包的长度
         std::cerr << "[Invalid header: caplen=0]" << std::endl;
@@ -95,9 +92,8 @@ void Capture::handlePacket(const pcap_pkthdr *pkthdr, const uint8_t *payload) co
     }
 
     m_pktInfor.clear();
-    // m_pktInfor.append(std::to_string(pkthdr->ts.tv_sec) + "." + std::to_string(pkthdr->ts.tv_usec) + ", ");
     m_pktInfor.append(ctime(static_cast<const time_t *>(&pkthdr->ts.tv_sec)));
-    m_pktInfor[m_pktInfor.size()-1] = ',';
+    m_pktInfor.at(m_pktInfor.size()-1) = ',';
     m_pktInfor.append(" " + std::to_string(pkthdr->len) + ", ");
 
     bool shouldSave = false;
@@ -112,26 +108,26 @@ void Capture::handlePacket(const pcap_pkthdr *pkthdr, const uint8_t *payload) co
     }
 
     if(shouldSave){
-        m_mutex->lock();
-        m_pktQue->push(m_pktInfor);
-        m_mutex->unlock();
+        m_pktInfor.append("</body></packet>");
+        // std::cout << m_pktInfor << std::endl;
+        m_mutex.lock();
+        m_pktQue.push(m_pktInfor);
+        m_mutex.unlock();
     }
 }
 
-bool Capture::handleEther(const uint8_t *pkt, size_t len) const{
-    // IEEE 802.3 Ethernet
+bool Capture::handleEther(const uint8_t *pkt, size_t len) const{    // IEEE 802.3 Ethernet
     if (len < ndn::ethernet::HDR_LEN){
         std::cerr << "Truncated Ethernet frame, length " << len << std::endl;
         return false;
     }
 
     auto ether = reinterpret_cast<const ether_header *>(pkt);
-
     if(isSent(ether->ether_shost)){
-        m_pktInfor = "S " + m_pktInfor;
+        m_pktInfor = "<packet><head><dev>" + m_interface + "</dev><origin>S</origin></head><body>" + m_pktInfor;
     }
     else{
-        m_pktInfor = "R " + m_pktInfor;
+        m_pktInfor = "<packet><head><dev>" + m_interface + "</dev><origin>R</origin></head><body>" + m_pktInfor;
     }
 
     pkt += ndn::ethernet::HDR_LEN; //指针偏移出以太网帧的头部
@@ -204,13 +200,11 @@ bool Capture::handleNdn(const uint8_t *pkt, size_t len) const {
                     }
                 }
                 if (lpPacket.has<ndn::lp::NackField>()){
-                    // ndn::lp::Nack nack(interest);
-                    // nack.setHeader(lpPacket.get<ndn::lp::NackField>());
-                    m_pktInfor.append("NACK: " + interestName.toUri());
+                    m_pktInfor.append("NACK, " + interestName.toUri());
                 }
                 else
                 {
-                    m_pktInfor.append("INTEREST: " + interestName.toUri());
+                    m_pktInfor.append("INTEREST, " + interestName.toUri());
                 }
                 return true;
                 break;
@@ -224,7 +218,7 @@ bool Capture::handleNdn(const uint8_t *pkt, size_t len) const {
                         return false;
                     }
                 }
-                m_pktInfor.append("DATA: " + data.getName().toUri());
+                m_pktInfor.append("DATA, " + data.getName().toUri());
                 return true;
                 break;
                 
@@ -246,7 +240,7 @@ bool Capture::handleNdn(const uint8_t *pkt, size_t len) const {
 void Capture::getMacAddr(){
     struct ifreq ifreq;
     int sock = socket(AF_INET,SOCK_STREAM,0);
-    strncpy(ifreq.ifr_name, m_interface, IFNAMSIZ);
+    strncpy(ifreq.ifr_name, m_interface.c_str(), IFNAMSIZ);
     ioctl(sock, SIOCGIFHWADDR, &ifreq);
 
     for(int i = 0; i < 6; i++){

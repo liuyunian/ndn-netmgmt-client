@@ -9,13 +9,13 @@
 
 class Capture{
 public:
-    Capture(std::shared_ptr<std::queue<std::string>> & pktQue, std::shared_ptr<std::mutex> & mutex);
-    Capture(const Capture & capture) = delete; //不可拷贝复制
-    Capture & operator = (const Capture &) = delete; //不可等号复制
+    Capture(std::string & interface);
 
     ~Capture();
 
     void run();
+
+    void stop();
 
 private:
     void handlePacket(const pcap_pkthdr *pkthdr, const uint8_t *payload) const;
@@ -26,15 +26,16 @@ private:
     bool isSent(const uint8_t * sourceAddr) const;
 
 private:
-    char * m_interface;
+    std::string m_interface;
     pcap_t * m_pcap;
     int m_dataLinkType; // 数据链路的类型,比如以太网,无线局域网
 
-    mutable std::string m_pktInfor;
     uint8_t m_macAddr[6];
+    mutable std::string m_pktInfor;
 
-    std::shared_ptr<std::queue<std::string>> m_pktQue;
-    std::shared_ptr<std::mutex> m_mutex;
+public:
+    mutable std::queue<std::string> m_pktQue;
+    mutable std::mutex m_mutex;
 };
 
 #endif

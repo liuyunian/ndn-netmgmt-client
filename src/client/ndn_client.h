@@ -16,20 +16,18 @@ public:
 
     ~Client(){}
 
-    void requestRouteInformation();
+    void requestStatusInfor();
 
-    void requestCSInformation();
+    void requestTrafficInfor();
 
-    void requestCaptureInformation();
+    void stopRequestTrafficInfor();
 
 signals:
-    void displayRouteInfor(QString);
+    void displayStatsInfor(QString);
 
-    void displayCSInfor(QString);
+    void displayDeviceInfor(QString);
+
     void displayPacketInfor(QString);
-
-public slots: 
-    void on_stopCapture();
 
 private:
     /**
@@ -39,6 +37,8 @@ private:
      * 
     */
     void timedSendInterest(ndn::Name & interestName, unsigned long interval);
+
+    void sendPacketInterest(uint64_t seq);
 
     /**
      * @brief 发送单个Interest
@@ -52,10 +52,13 @@ private:
 
 private:
     ndn::Face m_face;
-    ndn::util::scheduler::Scheduler m_scheduler;
-    ndn::util::scheduler::EventId m_eventId;
+    ndn::scheduler::Scheduler m_scheduler;
+    ndn::scheduler::ScopedEventId m_eventId;
 
     std::string m_prefix;
+    u_int64_t m_statusMaxSeq = 0;
+    std::string m_statusInfor;
+
     ThreadPool * m_pool;
 };
 

@@ -1,6 +1,6 @@
 5
-Node0 /ndn 350 100
-Node1 /prefix 150 250
-Node2 /prefix 550 250
-Node3 /prefix 250 450
-Node3 /prefix 450 450
+Node0 /ndn 450 200 Node1 Node2 Node3 Node4
+Node1 /prefix 200 400 Node0 Node2 Node3 Node4
+Node2 /prefix 700 400 Node0 Node1 Node3 Node4
+Node3 /prefix 320 650 Node0 Node1 Node2 Node4
+Node4 /prefix 580 650 Node0 Node1 Node2 Node3
