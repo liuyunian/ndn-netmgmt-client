@@ -1,6 +1,6 @@
 #include "network_topology.h"
 #include "ui_network_topology.h"
-#include <src/client/ui/network_topology.moc>
+#include <src/ui/network_topology.moc>
 
 #include <QMenu>
 #include <QPoint>
@@ -111,7 +111,7 @@ void NetworkTopology::contextMenuEvent(QContextMenuEvent *event){
 
 void NetworkTopology::readTopologyInfor(){
     std::string line;
-    std::ifstream fin("./src/client/topology/topology.txt");
+    std::ifstream fin("./src/topology/topology.txt");
     assert(fin.is_open());
 
     assert(std::getline(fin, line));

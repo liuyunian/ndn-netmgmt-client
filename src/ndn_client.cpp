@@ -2,7 +2,7 @@
 #include <ndn-cxx/interest.hpp>
 
 #include "ndn_client.h"
-#include <src/client/ndn_client.moc>
+#include <src/ndn_client.moc>
 
 Client::Client(const std::string & prefix):
     m_prefix(prefix),

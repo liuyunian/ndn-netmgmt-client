@@ -1,6 +1,6 @@
 #include "status_infor.h"
 #include "ui_status_infor.h"
-#include <src/client/ui/status_infor.moc>
+#include <src/ui/status_infor.moc>
 
 #include <QDomDocument>
 

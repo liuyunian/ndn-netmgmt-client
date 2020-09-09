@@ -1,6 +1,6 @@
 #include "traffic_infor.h"
 #include "ui_traffic_infor.h"
-#include <src/client/ui/traffic_infor.moc>
+#include <src/ui/traffic_infor.moc>
 
 #include <QDomDocument>
 

@@ -1,6 +1,6 @@
 #include "device_item.h"
 #include "ui_device_item.h"
-#include <src/client/ui/device_item.moc>
+#include <src/ui/device_item.moc>
 
 #include <iostream>
 

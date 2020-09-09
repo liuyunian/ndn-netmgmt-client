@@ -9,21 +9,12 @@ def options(opt):
 def configure(conf):
     conf.load(['compiler_c', 'compiler_cxx', 'qt5'])
     conf.check_cfg(package='libndn-cxx', args=['--cflags', '--libs'], uselib_store='NDN_CXX', mandatory=True)
-    conf.check_cfg(path='pcap-config', package='libpcap', args=['--libs', '--cflags'], uselib_store='PCAP', mandatory=True)
 
 def build(bld): # 创建一个任务生成器，用来生成下面的任务
     bld.program(
         features = 'qt5 cxx',
         target='client', # 生成的可执行文件名
-        source=bld.path.ant_glob(['src/client/*.cpp', 'src/client/ui/*.cpp', 'src/client/ui/*.ui']),
-        includes = ". ./src/client ./src/client/ui",
+        source=bld.path.ant_glob(['src/*.cpp', 'src/ui/*.cpp', 'src/ui/*.ui']),
+        includes = ". ./src ./src/ui",
         use='NDN_CXX QT5CORE QT5OPENGL QT5XML', # 使用的库名
-    )
-
-    bld.program(
-        features='cxx qt5',
-        target='server',
-        source=bld.path.ant_glob(['src/server/*.cpp']),
-        includes = ". ./src/server", 
-        use='NDN_CXX PCAP',
     )

@@ -1,5 +1,5 @@
 #include "node.h"
-#include <src/client/node.moc>
+#include <src/node.moc>
 #include <iostream>
 
 #include "ndn_client.h"
